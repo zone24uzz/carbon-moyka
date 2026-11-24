@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#050506">
+  <title>Admin — Carbon Car Wash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Onest:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin">
+<div class="grain" aria-hidden="true"></div>
+
+<!-- LOGIN -->
+<section id="loginView" class="login">
+  <div class="hero__weave" aria-hidden="true"></div>
+  <div class="bezel login__card">
+    <form id="loginForm" class="bezel__core form">
+      <a href="index.html" class="brand"><img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON</a>
+      <div>
+        <h1 class="login__title">Admin panel</h1>
+        <p class="section__sub">Navbatni boshqarish uchun kiring.</p>
+      </div>
+      <div class="field">
+        <label for="l-login">Login</label>
+        <input id="l-login" name="login" type="text" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="l-pass">Parol</label>
+        <input id="l-pass" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <p class="form__error" id="loginError" role="alert"></p>
+      <button class="btn btn--full" type="submit">
+        Kirish
+        <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- PANEL -->
+<section id="panelView" class="hidden">
+  <header class="nav nav--static">
+    <div class="nav__pill">
+      <a href="index.html" class="brand"><img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON <small>admin</small></a>
+      <span class="mono-label admin__clock" id="clock">--:--</span>
+      <button id="logoutBtn" class="btn btn--sm btn--ghost">Chiqish</button>
+    </div>
+  </header>
+
+  <main class="wrap admin__main">
+    <div class="admin__head">
+      <div>
+        <span class="eyebrow"><i class="dot dot--live"></i>Bugun</span>
+        <h1 class="title">Navbat boshqaruvi</h1>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Navbatda</span><b id="aWaiting">0</b></div></div>
+      <div class="bezel"><div class="bezel__core kpi kpi--accent"><span class="mono-label">Boksda</span><b id="aWashing">0</b></div></div>
+      <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Bugun tayyor</span><b id="aDone">0</b></div></div>
+      <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Tushum, so'm</span><b id="aRevenue">0</b></div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs" id="tabs" role="tablist">
+        <button data-filter="active" class="tab is-active" role="tab">Faol</button>
+        <button data-filter="done" class="tab" role="tab">Tayyor</button>
+        <button data-filter="all" class="tab" role="tab">Hammasi</button>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+        <input id="search" type="search" placeholder="Ism, telefon yoki raqam" aria-label="Qidirish">
+      </label>
+      <button id="clearDone" class="btn btn--sm btn--ghost">Tayyorlarni tozalash</button>
+    </div>
+
+    <div class="bezel">
+      <div class="bezel__core table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>№</th><th>Mijoz</th><th>Avto</th><th>Xizmat</th><th>Vaqt</th><th>Holat</th><th><span class="sr-only">Amallar</span></th></tr>
+          </thead>
+          <tbody id="adminTable"></tbody>
+        </table>
+        <p class="empty hidden" id="adminEmpty">Hozircha yozuv yo'q.</p>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
