@@ -874,7 +874,7 @@ html { color-scheme: dark; }
 }
 .float-chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--s2); }
 .fc1 { top: -22px; left: -34px; }
-.fc2 { top: 40%; right: -30px; animation-delay: -2.3s; }
+.fc2 { top: -22px; right: 24px; animation-delay: -2.3s; }
 .fc2 i { background: var(--green); }
 .fc3 { bottom: -22px; left: 40px; animation-delay: -4.6s; }
 .fc3 i { background: var(--red-hi); }
