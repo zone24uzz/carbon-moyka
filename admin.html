@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#050506">
-  <title>Admin — Carbon Car Wash</title>
+  <title>Admin — Carbon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Onest:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body class="admin">
 <div class="grain" aria-hidden="true"></div>
@@ -23,7 +23,7 @@
       <a href="index.html" class="brand"><img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON</a>
       <div>
         <h1 class="login__title">Admin panel</h1>
-        <p class="section__sub">Navbatni boshqarish uchun kiring.</p>
+        <p class="section__sub">Bronlar, xodimlar va hisobotlar.</p>
       </div>
       <div class="field">
         <label for="l-login">Login</label>
@@ -47,53 +47,186 @@
   <header class="nav nav--static">
     <div class="nav__pill">
       <a href="index.html" class="brand"><img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON <small>admin</small></a>
-      <span class="mono-label admin__clock" id="clock">--:--</span>
-      <button id="logoutBtn" class="btn btn--sm btn--ghost">Chiqish</button>
+      <nav class="tabs" id="views" role="tablist" aria-label="Bo'limlar">
+        <button class="tab is-active" data-view="schedule" role="tab">Jadval</button>
+        <button class="tab" data-view="staff" role="tab">Xodimlar</button>
+        <button class="tab" data-view="report" role="tab">Hisobot</button>
+      </nav>
+      <div class="nav__right">
+        <span class="mono-label admin__clock" id="clock">--:--</span>
+        <button id="logoutBtn" class="btn btn--sm btn--ghost">Chiqish</button>
+      </div>
     </div>
   </header>
 
   <main class="wrap admin__main">
-    <div class="admin__head">
-      <div>
-        <span class="eyebrow"><i class="dot dot--live"></i>Bugun</span>
-        <h1 class="title">Navbat boshqaruvi</h1>
-      </div>
-    </div>
 
-    <div class="kpis">
-      <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Navbatda</span><b id="aWaiting">0</b></div></div>
-      <div class="bezel"><div class="bezel__core kpi kpi--accent"><span class="mono-label">Boksda</span><b id="aWashing">0</b></div></div>
-      <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Bugun tayyor</span><b id="aDone">0</b></div></div>
-      <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Tushum, so'm</span><b id="aRevenue">0</b></div></div>
-    </div>
-
-    <div class="toolbar">
-      <div class="tabs" id="tabs" role="tablist">
-        <button data-filter="active" class="tab is-active" role="tab">Faol</button>
-        <button data-filter="done" class="tab" role="tab">Tayyor</button>
-        <button data-filter="all" class="tab" role="tab">Hammasi</button>
+    <!-- ============ JADVAL ============ -->
+    <section class="view" id="view-schedule">
+      <div class="admin__head">
+        <div>
+          <span class="eyebrow"><i class="dot dot--live"></i><span id="schedDayLabel">Bugun</span></span>
+          <h1 class="title">Bronlar jadvali</h1>
+        </div>
+        <details class="walkin" id="walkin">
+          <summary class="btn btn--sm">+ Jonli mijoz qo'shish</summary>
+          <form class="bezel__core form walkin__form" id="walkinForm">
+            <p class="walkin__note">Oldindan bron qilmasdan kelgan mijoz. Darhol «Keldi» holatida qo'shiladi.</p>
+            <div class="form__row">
+              <div class="field"><label for="w-kind">Bo'lim</label><select id="w-kind" name="kind"><option value="wash">Moyka</option><option value="service">Avtoservis</option></select></div>
+              <div class="field"><label for="w-svc">Xizmat</label><select id="w-svc" name="service"></select></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="w-type">Mashina turi</label><select id="w-type" name="carType"></select></div>
+              <div class="field"><label for="w-staff">Xodim</label><select id="w-staff" name="staffId"></select></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="w-plate">Avto raqami</label><input id="w-plate" name="plate" type="text" required></div>
+              <div class="field"><label for="w-model">Model</label><input id="w-model" name="model" type="text" required></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="w-name">Ism</label><input id="w-name" name="name" type="text"></div>
+              <div class="field"><label for="w-phone">Telefon</label><input id="w-phone" name="phone" type="tel"></div>
+            </div>
+            <p class="form__error" id="walkinError" role="alert"></p>
+            <button class="btn btn--full" type="submit">Qo'shish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
+          </form>
+        </details>
       </div>
-      <label class="search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
-        <input id="search" type="search" placeholder="Ism, telefon yoki raqam" aria-label="Qidirish">
-      </label>
-      <button id="clearDone" class="btn btn--sm btn--ghost">Tayyorlarni tozalash</button>
-    </div>
 
-    <div class="bezel">
-      <div class="bezel__core table-wrap">
-        <table class="table">
-          <thead>
-            <tr><th>№</th><th>Mijoz</th><th>Avto</th><th>Xizmat</th><th>Vaqt</th><th>Holat</th><th><span class="sr-only">Amallar</span></th></tr>
-          </thead>
-          <tbody id="adminTable"></tbody>
-        </table>
-        <p class="empty hidden" id="adminEmpty">Hozircha yozuv yo'q.</p>
+      <div class="kpis kpis--5">
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Bronlar</span><b id="kTotal">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Keldi</span><b id="kArrived">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi kpi--accent"><span class="mono-label">Ishlanmoqda</span><b id="kWorking">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Tayyor</span><b id="kDone">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Tushum, so'm</span><b id="kRevenue">0</b></div></div>
       </div>
-    </div>
+
+      <div class="toolbar">
+        <div class="datenav">
+          <button class="act act--icon" id="dPrev" aria-label="Oldingi kun">‹</button>
+          <input type="date" id="dPick" aria-label="Sana">
+          <button class="act act--icon" id="dNext" aria-label="Keyingi kun">›</button>
+          <button class="act" id="dToday">Bugun</button>
+        </div>
+        <div class="tabs" id="kindFilter">
+          <button data-k="all" class="tab is-active">Hammasi</button>
+          <button data-k="wash" class="tab">Moyka</button>
+          <button data-k="service" class="tab">Servis</button>
+        </div>
+        <select id="statusFilter" aria-label="Holat bo'yicha">
+          <option value="all">Barcha holatlar</option>
+          <option value="booked">Bron qilingan</option>
+          <option value="arrived">Keldi</option>
+          <option value="working">Ishlanmoqda</option>
+          <option value="done">Tayyor</option>
+          <option value="noshow">Kelmadi</option>
+          <option value="cancelled">Bekor qilingan</option>
+        </select>
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+          <input id="search" type="search" placeholder="Ism, telefon, raqam, model" aria-label="Qidirish">
+        </label>
+      </div>
+
+      <div class="bezel">
+        <div class="bezel__core table-wrap">
+          <table class="table table--sched">
+            <thead>
+              <tr><th>Vaqt</th><th>Mijoz</th><th>Mashina</th><th>Xizmat</th><th>Xodim</th><th>Tarix</th><th>Holat</th><th><span class="sr-only">Amallar</span></th></tr>
+            </thead>
+            <tbody id="schedTable"></tbody>
+          </table>
+          <p class="empty hidden" id="schedEmpty">Bu kunga yozuv yo'q.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ XODIMLAR ============ -->
+    <section class="view hidden" id="view-staff">
+      <div class="admin__head">
+        <div>
+          <span class="eyebrow">Moyshik va ustalar</span>
+          <h1 class="title">Xodimlar</h1>
+        </div>
+        <div class="tabs" id="staffPeriod">
+          <button data-p="1" class="tab is-active">Bugun</button>
+          <button data-p="7" class="tab">7 kun</button>
+          <button data-p="30" class="tab">30 kun</button>
+        </div>
+      </div>
+
+      <div class="staff-grid" id="staffGrid"></div>
+
+      <form class="bezel add-staff" id="addStaff">
+        <div class="bezel__core add-staff__core">
+          <span class="mono-label">Yangi xodim</span>
+          <input name="name" type="text" placeholder="Ism" aria-label="Xodim ismi" required>
+          <select name="role" aria-label="Lavozim"><option value="washer">Moyshik</option><option value="master">Usta</option></select>
+          <button class="btn btn--sm" type="submit">Qo'shish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ HISOBOT ============ -->
+    <section class="view hidden" id="view-report">
+      <div class="admin__head">
+        <div>
+          <span class="eyebrow">Tahlil</span>
+          <h1 class="title">Hisobot</h1>
+        </div>
+        <div class="tabs" id="repPeriod">
+          <button data-p="7" class="tab is-active">7 kun</button>
+          <button data-p="14" class="tab">14 kun</button>
+          <button data-p="30" class="tab">30 kun</button>
+        </div>
+      </div>
+
+      <div class="kpis kpis--5">
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Jami mashina</span><b id="rTotal">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Moyka</span><b id="rWash">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Avtoservis</span><b id="rServ">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi kpi--accent"><span class="mono-label">Tushum, so'm</span><b id="rRevenue">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Kelmadi</span><b id="rNoshow">0</b></div></div>
+      </div>
+
+      <div class="bezel">
+        <div class="bezel__core chart-card">
+          <div class="chart-card__head">
+            <div><h3>Kunlik mashinalar</h3><p id="repRange"></p></div>
+            <div class="legend"><span><i class="sw s1"></i>Moyka</span><span><i class="sw s2"></i>Avtoservis</span></div>
+          </div>
+          <div class="chart-box" id="repDaily"></div>
+        </div>
+      </div>
+
+      <div class="report-grid">
+        <div class="bezel"><div class="bezel__core chart-card">
+          <div class="chart-card__head"><div><h3>Xodimlar bo'yicha</h3><p>Tayyor bo'lgan mashinalar</p></div>
+            <div class="legend"><span><i class="sw s1"></i>Moyshik</span><span><i class="sw s2"></i>Usta</span></div></div>
+          <div id="repStaff"></div>
+        </div></div>
+        <div class="bezel"><div class="bezel__core chart-card">
+          <div class="chart-card__head"><div><h3>Mashina turlari</h3><p>Qanaqa mashinalar keldi</p></div></div>
+          <div id="repTypes"></div>
+          <div class="chart-card__head chart-card__head--sub"><div><h3>Ko'p keladigan modellar</h3></div></div>
+          <div id="repModels"></div>
+        </div></div>
+        <div class="bezel"><div class="bezel__core chart-card">
+          <div class="chart-card__head"><div><h3>Xizmatlar</h3><p>Eng ko'p buyurtma qilinganlar</p></div></div>
+          <div id="repServices"></div>
+        </div></div>
+      </div>
+
+      <div class="demo-bar" id="demoBar">
+        <p>Diagrammalar namunaviy (demo) ma'lumot bilan to'ldirilgan. Haqiqiy ishga tushirishdan oldin o'chiring.</p>
+        <button class="btn btn--sm btn--ghost" id="clearDemo">Demo ma'lumotni o'chirish</button>
+      </div>
+    </section>
   </main>
 </section>
 
-<script src="app.js"></script>
+<script src="store.js?v=7"></script>
+<script src="admin.js?v=7"></script>
 </body>
 </html>
