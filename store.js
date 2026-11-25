@@ -410,3 +410,46 @@ function flushNums(reveal) {
   reveal._nums?.forEach((el) => { const [n, f] = el._pending || []; el._pending = null; if (n != null) setNum(el, n, f); });
   reveal._nums = null;
 }
+
+/* ---------------- Kafe ---------------- */
+// Narxlar namuna: kafening haqiqiy menyusi bilan almashtiring.
+const CAFE_MENU = [
+  { id: "espresso", cat: "Qahva", name: "Espresso", desc: "30 ml, quyuq", price: 15000 },
+  { id: "americano", cat: "Qahva", name: "Amerikano", desc: "250 ml", price: 18000 },
+  { id: "cappuccino", cat: "Qahva", name: "Kapuchino", desc: "300 ml, sut ko'pigi", price: 25000 },
+  { id: "latte", cat: "Qahva", name: "Latte", desc: "350 ml", price: 27000 },
+  { id: "raf", cat: "Qahva", name: "Raf", desc: "350 ml, vanilli", price: 30000 },
+  { id: "icelatte", cat: "Qahva", name: "Ays-latte", desc: "400 ml, muzli", price: 29000 },
+  { id: "greentea", cat: "Choy", name: "Ko'k choy", desc: "choynakda", price: 12000 },
+  { id: "lemontea", cat: "Choy", name: "Limonli qora choy", desc: "choynakda", price: 15000 },
+  { id: "croissant", cat: "Yegulik", name: "Kruassan", desc: "sariyog'li", price: 20000 },
+  { id: "sandwich", cat: "Yegulik", name: "Sendvich", desc: "tovuqli", price: 32000 },
+];
+const CAFE_STATUS = { new: "Yangi", making: "Tayyorlanmoqda", ready: "Tayyor", given: "Berildi", cancelled: "Bekor" };
+KEYS.cafe = "carbon_cafe_orders";
+KEYS.myCafe = "carbon_my_cafe";
+const cafeItem = (id) => CAFE_MENU.find((m) => m.id === id);
+Store.cafe = () => read(KEYS.cafe, []);
+Store.saveCafe = (list) => write(KEYS.cafe, list);
+Store.updateCafe = (id, patch) => {
+  const list = Store.cafe();
+  const o = list.find((x) => x.id === id);
+  if (o) { Object.assign(o, patch); Store.saveCafe(list); }
+  return o;
+};
+const cafeTotal = (items) => items.reduce((s, it) => s + (cafeItem(it.id)?.price || 0) * it.qty, 0);
+
+function createCafeOrder({ items, name, phone, where, plate, note }) {
+  const list = Store.cafe();
+  const today = ymd();
+  const n = list.filter((o) => ymd(new Date(o.createdAt)) === today).length + 1;
+  const o = {
+    id: uid(), code: `K-${pad(n)}`, items, total: cafeTotal(items),
+    name, phone, where, plate, note, status: "new", createdAt: Date.now(),
+  };
+  list.push(o);
+  Store.saveCafe(list);
+  return o;
+}
+ICONS.cup = '<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9ZM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c0 1 1 1 1 2M11.5 3.5c0 1 1 1 1 2"/>';
+ICONS.minus = '<path d="M5 12h14"/>';

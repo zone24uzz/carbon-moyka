@@ -9,6 +9,7 @@ function initSite() {
   initMenu();
   renderServices();
   initBooking();
+  initCafe();
   initClock();
   initReveal();
 
@@ -33,6 +34,7 @@ function renderLive() {
   renderSchedule();
   renderMyTickets();
   renderBookingDynamic();
+  if (typeof renderMyCafe === "function") renderMyCafe();
 }
 
 /* ---------- Menyu, soat, reveal ---------- */
@@ -74,37 +76,30 @@ function priceText(s) {
 }
 
 function renderServices() {
-  const wash = SERVICES.filter((s) => s.kind === "wash")
-    .sort((a, b) => (b.feature ? 1 : 0) - (a.feature ? 1 : 0) || (a.wide ? 1 : 0) - (b.wide ? 1 : 0));
-  $("#washList").innerHTML = wash.map((s) => `
-    <article class="bezel reveal ${s.feature ? "is-feature" : ""} ${s.wide ? "is-wide" : ""}">
-      <div class="bezel__core svc">
-        ${s.feature ? '<span class="svc__tag">Eng ko\'p tanlanadi</span>' : ""}
-        <span class="svc__icon">${svg(s.icon)}</span>
-        <h3>${s.name}</h3>
-        <p>${s.desc}</p>
-        <div class="svc__foot">
-          <div>
-            <span class="svc__time">~${s.min} DAQIQA</span>
-            <span class="svc__price">${priceText(s)}</span>
-          </div>
-          <a href="#book" class="svc__pick" data-pick="${s.id}">Bron qilish ${svg("arrow")}</a>
-        </div>
+  const wash = SERVICES.filter((s) => s.kind === "wash");
+  $("#washList").innerHTML = wash.map((s, i) => `
+    <article class="pack reveal ${s.feature ? "pack--feature" : ""}">
+      <div class="pack__top">
+        <span class="pack__num">0${i + 1}</span>
+        ${s.feature ? '<span class="pack__tag">Eng ko&#39;p tanlanadi</span>' : `<span class="pack__icon">${svg(s.icon)}</span>`}
       </div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <div class="pack__price"><b>${fmt(s.price)}</b><span>so'm · ~${s.min} daq</span></div>
+      <a href="#book" class="btn ${s.feature ? "btn--lime" : "btn--ghost"} btn--full" data-pick="${s.id}">Tanlash<span class="btn__icon" aria-hidden="true">${svg("arrow")}</span></a>
     </article>`).join("");
 
-  $("#serviceList").innerHTML = SERVICES.filter((s) => s.kind === "service").map((s) => `
-    <article class="bezel reveal">
-      <div class="bezel__core svc svc--sm">
-        <span class="svc__icon">${svg(s.icon)}</span>
-        <h3>${s.name}</h3>
-        <p>${s.desc}</p>
-        <div class="svc__foot">
-          <span class="svc__price">${priceText(s)}</span>
-          <a href="#book" class="svc__pick" data-pick="${s.id}" aria-label="${s.name} — bron qilish">Bron ${svg("arrow")}</a>
-        </div>
-      </div>
-    </article>`).join("");
+  $("#serviceList").innerHTML = SERVICES.filter((s) => s.kind === "service").map((s, i) => `
+    <li class="price-row reveal">
+      <a href="#book" data-pick="${s.id}" aria-label="${s.name} — bron qilish">
+        <span class="price-row__num">${String(i + 1).padStart(2, "0")}</span>
+        <span class="price-row__icon">${svg(s.icon)}</span>
+        <span class="price-row__main"><b>${s.name}</b><small>${s.desc}</small></span>
+        <span class="price-row__time">~${s.min} daq</span>
+        <span class="price-row__price">${fmt(s.price)}<small>so'm${s.from ? " dan" : ""}</small></span>
+        <span class="price-row__go">${svg("arrow")}</span>
+      </a>
+    </li>`).join("");
 
   document.addEventListener("click", (e) => {
     const pick = e.target.closest("[data-pick]");
@@ -353,6 +348,102 @@ function renderBookingDynamic() {
     <div><span>Vaqt</span><b>${dayLabel(state.date)}, ${state.time || "—"}</b></div>
     <div><span>${KINDS[state.kind].roleName}</span><b>${esc(who)}</b></div>
     <div><span>Narx</span><b>${fmt(priceOf(state.service, state.carType))} so'm${s.from ? " dan" : ""}</b><small>~${dur} daq</small></div>`;
+}
+
+/* ---------- Kafe ---------- */
+const cart = {};
+
+function initCafe() {
+  if (!$("#cafeMenu")) return;
+  const cats = [...new Set(CAFE_MENU.map((m) => m.cat))];
+  $("#cafeMenu").innerHTML = cats.map((c) => `
+    <div class="menu-cat reveal">
+      <h3 class="menu-cat__title">${c}</h3>
+      ${CAFE_MENU.filter((m) => m.cat === c).map((m) => `
+        <div class="menu-item" data-id="${m.id}">
+          <span class="menu-item__icon">${svg("cup")}</span>
+          <span class="menu-item__name"><b>${m.name}</b><small>${m.desc}</small></span>
+          <span class="menu-item__price">${fmt(m.price)}</span>
+          <span class="qty">
+            <button type="button" data-q="-1" aria-label="${m.name}: kamaytirish">${svg("minus")}</button>
+            <output>0</output>
+            <button type="button" data-q="1" aria-label="${m.name}: qo'shish">${svg("plus")}</button>
+          </span>
+        </div>`).join("")}
+    </div>`).join("");
+
+  $("#cafeMenu").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-q]");
+    if (!b) return;
+    const id = b.closest(".menu-item").dataset.id;
+    cart[id] = Math.max(0, Math.min(20, (cart[id] || 0) + +b.dataset.q));
+    if (!cart[id]) delete cart[id];
+    renderCart();
+  });
+  $("#cartItems").addEventListener("click", (e) => {
+    const id = e.target.closest("[data-rm]")?.dataset.rm;
+    if (id) { delete cart[id]; renderCart(); }
+  });
+
+  const f = $("#cafeForm");
+  f.addEventListener("change", (e) => {
+    if (e.target.name === "where") $("#cafePlateField").classList.toggle("hidden", e.target.value !== "car");
+  });
+  f.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f));
+    const items = Object.entries(cart).map(([id, qty]) => ({ id, qty }));
+    const err = (m) => ($("#cafeError").textContent = m);
+    if (!items.length) return err("Menyudan kamida bitta narsa tanlang.");
+    if ((d.name || "").trim().length < 2) return err("Ismingizni yozing.");
+    if ((d.phone || "").replace(/\D/g, "").length < 9) return err("Telefon raqam to'liq emas.");
+    if (d.where === "car" && (d.plate || "").trim().length < 4) return err("Mashinangiz raqamini yozing — olib chiqamiz.");
+    err("");
+    const o = createCafeOrder({
+      items, name: d.name.trim(), phone: d.phone.replace(/[^\d+]/g, ""), where: d.where,
+      plate: (d.plate || "").trim().toUpperCase(), note: (d.note || "").trim(),
+    });
+    localStorage.setItem(KEYS.myCafe, JSON.stringify([...(read(KEYS.myCafe, [])), o.id]));
+    Object.keys(cart).forEach((k) => delete cart[k]);
+    f.reset();
+    $("#cafePlateField").classList.add("hidden");
+    renderCart();
+    renderMyCafe();
+    setTimeout(() => window.fxBurst?.($("#myCafe .cafe-ticket")), 200);
+  });
+
+  renderCart();
+  renderMyCafe();
+}
+
+function renderCart() {
+  $$(".menu-item").forEach((el) => {
+    const q = cart[el.dataset.id] || 0;
+    $("output", el).textContent = q;
+    el.classList.toggle("is-on", q > 0);
+  });
+  const items = Object.entries(cart);
+  const count = items.reduce((s, [, q]) => s + q, 0);
+  $("#cartCount").textContent = `${count} ta`;
+  $("#cartTotal").textContent = `${fmt(cafeTotal(items.map(([id, qty]) => ({ id, qty }))))} so'm`;
+  $("#cartItems").innerHTML = items.length
+    ? items.map(([id, q]) => {
+        const m = cafeItem(id);
+        return `<li><span>${q} × ${m.name}</span><b>${fmt(m.price * q)}</b><button type="button" data-rm="${id}" aria-label="${m.name} ni olib tashlash">×</button></li>`;
+      }).join("")
+    : `<li class="cart__empty">Savat bo'sh — menyudan tanlang.</li>`;
+}
+
+function renderMyCafe() {
+  if (!$("#myCafe")) return;
+  const mine = read(KEYS.myCafe, []);
+  const list = Store.cafe().filter((o) => mine.includes(o.id) && o.status !== "cancelled" && (o.status !== "given" || Date.now() - (o.givenAt || 0) < 3600000));
+  $("#myCafe").innerHTML = list.map((o) => `
+    <div class="cafe-ticket">
+      <div class="cafe-ticket__top"><b>${o.code}</b><span class="badge badge--cafe-${o.status}">${CAFE_STATUS[o.status]}</span></div>
+      <p>${o.items.map((it) => `${it.qty}× ${cafeItem(it.id)?.name || it.id}`).join(", ")}</p>
+      <small>${o.where === "car" ? `Mashinaga olib chiqiladi · ${esc(o.plate)}` : "Kafeda olasiz"} · ${fmt(o.total)} so'm</small>
+    </div>`).join("");
 }
 
 initSite();

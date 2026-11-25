@@ -36,6 +36,7 @@ function initAdmin() {
   initSchedule();
   initStaff();
   initReport();
+  initCafe();
 
   const tick = () => ($("#clock").textContent = new Date().toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }));
   tick();
@@ -58,6 +59,8 @@ function render() {
   if (ui.view === "schedule") renderSchedule();
   if (ui.view === "staff") renderStaff();
   if (ui.view === "report") renderReport();
+  if (ui.view === "cafe") renderCafe();
+  updateCafeBadge();
 }
 
 function segment(sel, key, cb) {
@@ -420,3 +423,65 @@ function renderReport() {
 }
 
 initAdmin();
+
+/* =================== KAFE =================== */
+function updateCafeBadge() {
+  const n = Store.cafe().filter((o) => o.status === "new").length;
+  const b = $("#cafeBadge");
+  if (!b) return;
+  b.textContent = n;
+  b.classList.toggle("hidden", !n);
+}
+
+function initCafe() {
+  $("#cafeBoard").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cafe]");
+    if (!btn) return;
+    const id = btn.dataset.id, act = btn.dataset.cafe, now = Date.now();
+    if (act === "cancel" && !confirm("Buyurtma bekor qilinsinmi?")) return;
+    const patch = { making: { status: "making", makingAt: now }, ready: { status: "ready", readyAt: now }, given: { status: "given", givenAt: now }, cancel: { status: "cancelled" } }[act];
+    Store.updateCafe(id, patch);
+    renderCafe();
+    updateCafeBadge();
+  });
+}
+
+function renderCafe() {
+  const today = ymd();
+  const list = Store.cafe().filter((o) => ymd(new Date(o.createdAt)) === today && o.status !== "cancelled").sort((a, b) => a.createdAt - b.createdAt);
+  const given = list.filter((o) => o.status === "given");
+  setNum($("#cNew"), list.filter((o) => o.status === "new").length);
+  setNum($("#cMaking"), list.filter((o) => o.status === "making").length);
+  setNum($("#cGiven"), given.length);
+  $("#cRevenue").textContent = fmt(given.reduce((s, o) => s + o.total, 0));
+
+  const cols = [
+    { key: "new", name: "Yangi", hint: "qabul qiling", act: ["making", "Tayyorlash", "act--primary"] },
+    { key: "making", name: "Tayyorlanmoqda", hint: "barista ishlayapti", act: ["ready", "Tayyor", "act--ok"] },
+    { key: "ready", name: "Tayyor", hint: "berish kerak", act: ["given", "Berildi", "act--primary"] },
+    { key: "given", name: "Berildi", hint: "bugun" },
+  ];
+  $("#cafeBoard").innerHTML = cols.map((c) => {
+    const items = list.filter((o) => o.status === c.key);
+    return `
+      <section class="kcol kcol--cafe-${c.key}">
+        <header class="kcol__head"><span class="kcol__dot"></span><b>${c.name}</b><em>${items.length}</em><small>${c.hint}</small></header>
+        <div class="kcol__list">
+          ${items.length ? items.map((o) => `
+            <article class="kcard kcard--cafe">
+              <div class="kcard__top"><b class="kcard__time">${clock(o.createdAt)}</b><span class="t-kind t-kind--cafe">${o.where === "car" ? "Mashinaga" : "Kafeda"}</span><span class="kcard__code">${o.code}</span></div>
+              <ul class="kcard__order">${o.items.map((it) => `<li><b>${it.qty}×</b> ${esc(cafeItem(it.id)?.name || it.id)}</li>`).join("")}</ul>
+              ${o.note ? `<div class="kcard__note">«${esc(o.note)}»</div>` : ""}
+              <div class="kcard__car">${esc(o.name)} · <a href="tel:${esc(o.phone)}">${esc(o.phone)}</a>${o.where === "car" ? ` · <b class="t-plate">${esc(o.plate)}</b>` : ""}</div>
+              <div class="kcard__foot">
+                <b class="kcard__sum">${fmt(o.total)} so'm</b>
+                <span class="actions">
+                  ${c.act ? `<button class="act ${c.act[2]}" data-cafe="${c.act[0]}" data-id="${o.id}">${c.act[1]}</button>` : `<span class="kcard__meta">${clock(o.givenAt)}</span>`}
+                  ${c.key !== "given" ? `<button class="act act--icon" data-cafe="cancel" data-id="${o.id}" aria-label="${o.code} ni bekor qilish">${svg("trash")}</button>` : ""}
+                </span>
+              </div>
+            </article>`).join("") : `<p class="kcol__empty">Bo'sh</p>`}
+        </div>
+      </section>`;
+  }).join("");
+}

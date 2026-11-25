@@ -38,6 +38,10 @@
     el.classList.add("words");
   }
   document.querySelectorAll(".title").forEach(splitWords);
+  const tio = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("is-in"); tio.unobserve(e.target); }
+  }), { threshold: 0.2 });
+  document.querySelectorAll(".title.words").forEach((t) => tio.observe(t));
 
   /* 3. Sovun pufakchalari (hero canvas) */
   const cv = document.getElementById("bubbles");
@@ -75,14 +79,14 @@
         if (d < 110) { b.x += (dx / d) * 1.6; b.y += (dy / d) * 1.2; }
         if (b.y < -40) Object.assign(b, make(false));
         const g = ctx.createRadialGradient(b.x - b.r * 0.35, b.y - b.r * 0.35, b.r * 0.1, b.x, b.y, b.r);
-        g.addColorStop(0, "rgba(255,255,255,0.10)");
-        g.addColorStop(0.75, "rgba(255,255,255,0.02)");
-        g.addColorStop(1, b.hue ? "rgba(140,200,255,0.20)" : "rgba(255,120,110,0.20)");
+        g.addColorStop(0, "rgba(255,255,255,0.55)");
+        g.addColorStop(0.7, "rgba(255,255,255,0.08)");
+        g.addColorStop(1, b.hue ? "rgba(36,72,255,0.22)" : "rgba(160,200,40,0.28)");
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = "rgba(255,255,255,0.16)"; ctx.lineWidth = 1; ctx.stroke();
+        ctx.strokeStyle = "rgba(13,16,21,0.14)"; ctx.lineWidth = 1; ctx.stroke();
         ctx.beginPath(); ctx.arc(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.35, Math.PI * 1.1, Math.PI * 1.6);
-        ctx.strokeStyle = "rgba(255,255,255,0.45)"; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.strokeStyle = "rgba(255,255,255,0.95)"; ctx.lineWidth = 1.4; ctx.stroke();
       }
       requestAnimationFrame(draw);
     };
@@ -108,7 +112,7 @@
 
   /* 5. Kartalar: chegara nuri + 3D qiyalik */
   if (fine) {
-    const spot = ".bento .bezel, .svc-grid .bezel, .stat-tiles .bezel, .gallery .bezel, .serv-banner, .hero__board, .quote, .cta .bezel, .ticket-wrap";
+    const spot = ".pack, .price-row, .num, .live, .quote, .ticket-wrap, .chart-card, .receipt";
     document.addEventListener("pointermove", raf((e) => {
       const el = e.target.closest?.(spot);
       if (!el) return;
@@ -116,7 +120,7 @@
       const x = e.clientX - r.left, y = e.clientY - r.top;
       el.style.setProperty("--x", `${x}px`);
       el.style.setProperty("--y", `${y}px`);
-      if (el.matches(".svc-grid .bezel, .bento .bezel, .stat-tiles .bezel")) {
+      if (el.matches(".pack")) {
         const rx = ((y / r.height) - 0.5) * -6, ry = ((x / r.width) - 0.5) * 6;
         el.style.setProperty("--rx", `${rx}deg`);
         el.style.setProperty("--ry", `${ry}deg`);

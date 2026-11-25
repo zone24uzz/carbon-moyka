@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#050506">
+  <meta name="theme-color" content="#EDEEE9">
   <title>Admin — Carbon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Onest:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=25">
 </head>
 <body class="admin">
 <div class="grain" aria-hidden="true"></div>
@@ -49,6 +49,7 @@
       <a href="index.html" class="brand"><img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON <small>admin</small></a>
       <nav class="tabs" id="views" role="tablist" aria-label="Bo'limlar">
         <button class="tab is-active" data-view="schedule" role="tab">Jadval</button>
+        <button class="tab" data-view="cafe" role="tab">Kafe <span class="tab__badge hidden" id="cafeBadge">0</span></button>
         <button class="tab" data-view="staff" role="tab">Xodimlar</button>
         <button class="tab" data-view="report" role="tab">Hisobot</button>
       </nav>
@@ -152,6 +153,23 @@
       </div>
     </section>
 
+    <!-- ============ KAFE ============ -->
+    <section class="view hidden" id="view-cafe">
+      <div class="admin__head">
+        <div>
+          <span class="eyebrow"><i class="dot dot--live"></i>Bugun</span>
+          <h1 class="title">Kafe buyurtmalari</h1>
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="bezel"><div class="bezel__core kpi kpi--accent"><span class="mono-label">Yangi</span><b id="cNew">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Tayyorlanmoqda</span><b id="cMaking">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Bugun berildi</span><b id="cGiven">0</b></div></div>
+        <div class="bezel"><div class="bezel__core kpi"><span class="mono-label">Tushum, so'm</span><b id="cRevenue">0</b></div></div>
+      </div>
+      <div class="kanban kanban--cafe" id="cafeBoard"></div>
+    </section>
+
     <!-- ============ XODIMLAR ============ -->
     <section class="view hidden" id="view-staff">
       <div class="admin__head">
@@ -236,7 +254,7 @@
   </main>
 </section>
 
-<script src="store.js?v=12"></script>
-<script src="admin.js?v=12"></script>
+<script src="store.js?v=25"></script>
+<script src="admin.js?v=25"></script>
 </body>
 </html>

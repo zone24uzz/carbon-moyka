@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carbon — moyka va avtoservis, Toshkent · Onlayn bron</title>
-  <meta name="description" content="Carbon — Toshkentdagi avtomoyka va avtoservis bir binoda. Kun va soatni tanlab bron qiling, mashinangizni kim yuvishi yoki ta'mirlashini oldindan biling.">
-  <meta name="theme-color" content="#050506">
+  <title>Carbon — avtoservis va moyka, Toshkent · Onlayn bron</title>
+  <meta name="description" content="Carbon — Toshkentdagi avtoservis va avtomoyka bir binoda. Kun va soatni tanlab bron qiling, mashinangizni kim ta'mirlashi yoki yuvishini oldindan biling.">
+  <meta name="theme-color" content="#EDEEE9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Onest:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
   <script>document.documentElement.classList.add("js")</script>
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
 <div class="preloader" id="preloader" aria-hidden="true">
   <div class="preloader__in">
-    <img src="assets/logo-mark.svg" width="56" height="56" alt="">
     <span class="preloader__word">CARBON</span>
     <span class="preloader__bar"><i></i></span>
   </div>
@@ -25,62 +23,61 @@
 <div class="progress" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"></div>
 
-<!-- NAV -->
-<header class="nav" id="nav">
-  <div class="nav__pill">
-    <a href="#top" class="brand" aria-label="Carbon Car Wash">
-      <img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON<small>car wash</small>
+<!-- HEADER -->
+<header class="header" id="nav">
+  <div class="wrap header__in">
+    <a href="#top" class="brand" aria-label="Carbon">
+      <img class="brand__logo" src="assets/logo-mark.svg" width="34" height="34" alt="">
+      <span class="brand__name">Carbon<small>servis · moyka</small></span>
     </a>
-    <nav class="nav__links" aria-label="Asosiy menyu">
-      <a href="#servis">Avtoservis</a>
+    <nav class="header__nav" aria-label="Asosiy menyu">
+      <a href="#servis">Servis</a>
       <a href="#services">Moyka</a>
-      <a href="#stats">Statistika</a>
+      <a href="#cafe">Kafe</a>
+      <a href="#stats">Raqamlar</a>
       <a href="#schedule">Jadval</a>
       <a href="#contact">Manzil</a>
     </nav>
-    <a href="#book" class="btn btn--sm nav__cta">
-      Bron qilish
-      <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-    </a>
-    <button class="burger" id="burger" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="menu">
-      <span></span><span></span>
-    </button>
+    <div class="header__right">
+      <a class="header__phone" href="tel:+998900677774">+998 90 067 77 74</a>
+      <a href="#book" class="btn btn--sm">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <button class="burger" id="burger" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
   </div>
 </header>
 
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__links">
-    <a href="#servis">Avtoservis</a>
+    <a href="#servis">Servis</a>
     <a href="#services">Moyka</a>
-    <a href="#stats">Statistika</a>
+    <a href="#cafe">Kafe</a>
+    <a href="#stats">Raqamlar</a>
     <a href="#book">Bron qilish</a>
-    <a href="#schedule">Bugungi jadval</a>
+    <a href="#schedule">Jadval</a>
     <a href="#contact">Manzil</a>
   </nav>
+  <a class="menu__phone" href="tel:+998900677774">+998 90 067 77 74</a>
 </div>
 
 <main id="top">
 
   <!-- HERO -->
   <section class="hero">
-    <img class="hero__photo" src="assets/facade.webp" alt="" fetchpriority="high">
-    <div class="hero__weave" aria-hidden="true"></div>
-    <div class="hero__glow" aria-hidden="true"></div>
-    <div class="hero__spot" aria-hidden="true"></div>
     <canvas class="hero__bubbles" id="bubbles" aria-hidden="true"></canvas>
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <span class="eyebrow reveal"><i class="dot dot--live"></i>Toshkent · Avtoservis va moyka</span>
-        <h1 class="display lines"><span class="line"><span>Navbatda</span></span><span class="line"><span>turmang.</span></span><span class="line"><em>Bron</em></span><span class="line"><em>qiling.</em></span></h1>
-        <p class="lead reveal">Ustaxona va moyka bitta binoda. Kun va soatni tanlang, mashinangizni kim yuvishi yoki ta'mirlashini oldindan biling.</p>
+        <p class="kicker reveal"><i class="dot dot--live"></i>Toshkent · har kuni 07:30 – 23:30</p>
+        <h1 class="display lines">
+          <span class="line"><span>Avtoservis</span></span>
+          <span class="line"><span>va moyka.</span></span>
+          <span class="line"><em>Bir joyda.</em></span>
+        </h1>
+        <p class="lead reveal">Motor, karobka, razval yoki shunchaki toza mashina — kun va soatni tanlang, ustangizni oldindan biling. Navbatda turish yo'q.</p>
         <div class="hero__actions reveal">
-          <a href="#book" class="btn">
-            Bron qilish
-            <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-          </a>
-          <a href="#servis" class="btn btn--ghost">Servis ishlari</a>
+          <a href="#book" class="btn btn--lg">Vaqtni band qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+          <a href="#servis" class="btn btn--ghost btn--lg">Servis ishlari</a>
         </div>
-        <ul class="hero__works reveal" aria-label="Servis ishlari">
+        <ul class="works reveal" aria-label="Servis ishlari">
           <li><a href="#servis">Motor</a></li>
           <li><a href="#servis">Karobka</a></li>
           <li><a href="#servis">Razval</a></li>
@@ -88,327 +85,278 @@
           <li><a href="#servis">Xodovoy</a></li>
           <li><a href="#servis">Diagnostika</a></li>
         </ul>
-        <a href="#reviews" class="rating reveal">
-          <span class="rating__stars" aria-hidden="true">★★★★<i>★</i></span>
-          <b>4.3</b><span>Google Maps'da 12 ta sharh</span>
-        </a>
       </div>
 
-      <div class="hero__right reveal">
-      <span class="float-chip fc1"><i></i>Razval · 3D stend</span>
-      <span class="float-chip fc2"><i></i>07:30 – 23:30</span>
-      <span class="float-chip fc3"><i></i>Motor va karobka</span>
-      <aside class="bezel hero__board" aria-label="Bugungi holat">
-        <div class="bezel__core board">
-          <div class="board__head">
-            <span class="mono-label"><i class="dot dot--live"></i> Bugun, jonli</span>
-            <span class="mono-label board__clock" id="clock">--:--</span>
+      <div class="hero__visual reveal">
+        <figure class="hero__photo">
+          <img src="assets/facade.webp" alt="Carbon binosi" fetchpriority="high" width="1600" height="720">
+        </figure>
+        <a href="#reviews" class="hero__rating">
+          <b>4.3</b>
+          <span><span class="stars" aria-hidden="true">★★★★<i>★</i></span>Google Maps · 12 sharh</span>
+        </a>
+        <aside class="live" aria-label="Bugungi holat">
+          <div class="live__head">
+            <span class="mono"><i class="dot dot--live"></i> Bugun, jonli</span>
+            <span class="mono" id="clock">--:--</span>
           </div>
-          <div class="board__now">
-            <span class="mono-label">Hozir ishlanmoqda</span>
+          <div class="live__now">
+            <small>Hozir ishlanmoqda</small>
             <strong id="boardNow">—</strong>
-            <span class="board__who" id="boardWho"></span>
+            <span id="boardWho"></span>
           </div>
-          <div class="board__stats">
-            <div><b id="statDone">0</b><span>bugun tayyor</span></div>
-            <div><b id="statWorking">0</b><span>ishlanmoqda</span></div>
+          <div class="live__stats">
+            <div><b id="statDone">0</b><span>tayyor</span></div>
+            <div><b id="statWorking">0</b><span>ishda</span></div>
             <div><b id="statFree">--:--</b><span>bo'sh vaqt</span></div>
           </div>
-          <ul class="board__next" id="boardNext"></ul>
-        </div>
-      </aside>
+          <ul class="live__next" id="boardNext"></ul>
+        </aside>
       </div>
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker__track">
-      <span>Motor ta'miri</span><i></i><span>Karobka</span><i></i><span>Razval</span><i></i><span>Balansirovka</span><i></i><span>Xodovoy</span><i></i><span>Diagnostika</span><i></i>
-      <span>Motor ta'miri</span><i></i><span>Karobka</span><i></i><span>Razval</span><i></i><span>Balansirovka</span><i></i><span>Xodovoy</span><i></i><span>Diagnostika</span><i></i>
-    </div>
-    <div class="ticker__track ticker__track--rev">
-      <span>Ko'pikli yuvish</span><i></i><span>Salon tozalash</span><i></i><span>Premium mum</span><i></i><span>Har kuni 07:30 – 23:30</span><i></i><span>Onlayn bron</span><i></i>
-      <span>Ko'pikli yuvish</span><i></i><span>Salon tozalash</span><i></i><span>Premium mum</span><i></i><span>Har kuni 07:30 – 23:30</span><i></i><span>Onlayn bron</span><i></i>
+  <div class="strip" aria-hidden="true">
+    <div class="strip__track">
+      <span>Motor ta'miri</span><i>✳</i><span>Karobka</span><i>✳</i><span>Razval 3D</span><i>✳</i><span>Balansirovka</span><i>✳</i><span>Ko'pikli yuvish</span><i>✳</i><span>Salon kimyo</span><i>✳</i><span>Kafe · qahva</span><i>✳</i>
+      <span>Motor ta'miri</span><i>✳</i><span>Karobka</span><i>✳</i><span>Razval 3D</span><i>✳</i><span>Balansirovka</span><i>✳</i><span>Ko'pikli yuvish</span><i>✳</i><span>Salon kimyo</span><i>✳</i><span>Kafe · qahva</span><i>✳</i>
     </div>
   </div>
 
-  <!-- AVTOSERVIS (tepada) -->
+  <!-- 01 SERVIS -->
   <section id="servis" class="section">
     <div class="wrap">
-      <div class="section__head section__head--row" data-index="01">
-        <div>
-          <span class="eyebrow reveal">Avtoservis</span>
-          <h2 class="title reveal">Ustaxona — <br><em>shu binoning o'zida.</em></h2>
-        </div>
-        <p class="section__sub reveal">Mashinangiz yuvilayotganda razval yoki diagnostikani ham qilib olish mumkin. «...dan» belgisi bor narxlar ko'rikdan keyin aniqlanadi.</p>
-      </div>
-      <div class="bezel serv-banner reveal">
-        <div class="bezel__core serv-banner__core">
+      <header class="sec-head">
+        <span class="sec-num">01</span>
+        <h2 class="title">Servis ishlari</h2>
+        <p class="sec-sub reveal">Ko'targichli ustaxona shu binoning o'zida. Mashinangiz yuvilayotganda razval yoki diagnostikani ham qilib olish mumkin. «dan» belgisi — aniq narx ko'rikdan keyin.</p>
+      </header>
+      <div class="servis">
+        <figure class="servis__photo reveal">
           <img src="assets/boxes.webp" alt="Ustaxona: ko'targichlardagi mashinalar" loading="lazy" width="640" height="640">
-          <div class="serv-banner__text">
-            <span class="mono-label">Servis ishlari</span>
-            <p>Ko'targichlar, diagnostika skaneri va razval stendi. Ustani oldindan tanlab, vaqtni band qilasiz.</p>
-            <a href="#book" class="btn btn--sm" data-pick="diag">Servisga yozilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-          </div>
-        </div>
+          <figcaption>
+            <span class="mono">Ustaxona</span>
+            <a href="#book" class="btn btn--sm btn--light" data-pick="diag">Servisga yozilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+          </figcaption>
+        </figure>
+        <ol class="price-list" id="serviceList"></ol>
       </div>
-      <div class="svc-grid" id="serviceList"></div>
     </div>
   </section>
 
-  <!-- MOYKA -->
-  <section id="services" class="section section--line">
+  <!-- 02 MOYKA -->
+  <section id="services" class="section section--alt">
     <div class="wrap">
-      <div class="section__head" data-index="02">
-        <span class="eyebrow reveal">Moyka</span>
-        <h2 class="title reveal">Har bir mashinaga <br>o'z tozaligi.</h2>
-        <p class="section__sub reveal">Narxlar yengil avtomobil uchun. Krossover uchun +20%, jip va miniven uchun +40%.</p>
-      </div>
-      <div class="bento" id="washList"></div>
+      <header class="sec-head">
+        <span class="sec-num">02</span>
+        <h2 class="title">Moyka paketlari</h2>
+        <p class="sec-sub reveal">Narx yengil avtomobil uchun. Krossover +20%, jip va miniven +40%. Yopiq, yorug' bokslar.</p>
+      </header>
+      <div class="packs" id="washList"></div>
     </div>
   </section>
 
-
-  <!-- STATISTIKA -->
-  <section id="stats" class="section">
+  <!-- 03 KAFE -->
+  <section id="cafe" class="section">
     <div class="wrap">
-      <div class="section__head section__head--row" data-index="03">
-        <div>
-          <span class="eyebrow reveal">Raqamlarda</span>
-          <h2 class="title reveal">Har kuni o'nlab <br>mashina.</h2>
+      <header class="sec-head">
+        <span class="sec-num">03</span>
+        <h2 class="title">Kafe</h2>
+        <p class="sec-sub reveal">Mashinangiz tayyor bo'lguncha qahva iching. Oldindan buyurtma qiling — tayyor bo'lganda kafeda olasiz yoki mashinangizga olib chiqamiz.</p>
+      </header>
+      <div class="cafe">
+        <div class="cafe__menu">
+          <figure class="cafe__photo reveal">
+            <img src="assets/drive.webp" alt="Bino yonidagi kafe" loading="lazy" width="720" height="1280">
+            <figcaption><span class="mono">Kafe · shu binoda</span><b>Qahva, choy va yengil taomlar</b></figcaption>
+          </figure>
+          <div class="menu-list" id="cafeMenu"></div>
         </div>
-        <p class="section__sub reveal">Raqamlar bron tizimidan olinadi: mashina «Tayyor» bo'lganda hisobga kiradi.</p>
-      </div>
-      <div class="stats">
-        <div class="stat-tiles">
-          <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">So'nggi 30 kunda</span><b id="st30">0</b><span>ta mashinaga xizmat</span></div></div>
-          <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">Moyka / Servis</span><b><span id="stWash">0</span> / <span id="stServ">0</span></b><span>so'nggi 30 kun</span></div></div>
-          <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">Bugun</span><b id="stToday">0</b><span>ta mashina tayyor</span></div></div>
-        </div>
-        <div class="bezel reveal">
-          <div class="bezel__core chart-card">
-            <div class="chart-card__head">
-              <div>
-                <h3>Kunlik xizmat ko'rsatilgan mashinalar</h3>
-                <p>So'nggi 14 kun</p>
-              </div>
-              <div class="legend">
-                <span><i class="sw s1"></i>Moyka</span>
-                <span><i class="sw s2"></i>Avtoservis</span>
-              </div>
-            </div>
-            <div class="chart-box" id="dailyChart"></div>
-            <details class="table-view">
-              <summary>Jadval ko'rinishi</summary>
-              <div id="dailyTable"></div>
-            </details>
+
+        <form class="cart reveal" id="cafeForm" novalidate>
+          <div class="cart__head"><span class="mono">Savat</span><span class="mono" id="cartCount">0 ta</span></div>
+          <ul class="cart__items" id="cartItems"></ul>
+          <div class="cart__total"><span>Jami</span><b id="cartTotal">0 so'm</b></div>
+
+          <div class="cart__where" role="radiogroup" aria-label="Qayerda olasiz">
+            <label><input type="radio" name="where" value="cafe" checked><span>Kafeda olaman</span></label>
+            <label><input type="radio" name="where" value="car"><span>Mashinamga olib chiqing</span></label>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALEREYA -->
-  <section id="place" class="section section--line">
-    <div class="wrap">
-      <div class="section__head section__head--row" data-index="04">
-        <div>
-          <span class="eyebrow reveal">Bizning bino</span>
-          <h2 class="title reveal">Keng bokslar.<br><em>Toza ish.</em></h2>
-        </div>
-        <p class="section__sub reveal">Yopiq, yorug' moyka bokslari, ko'targichli ustaxona va kutish uchun kafe — hammasi bitta binoda.</p>
-      </div>
-      <div class="gallery">
-        <figure class="bezel g-wide reveal"><div class="bezel__core g-img"><img src="assets/facade.webp" alt="Carbon binosi, kunduzi" loading="lazy" width="1600" height="720"><figcaption>Bino · kunduzi</figcaption></div></figure>
-        <figure class="bezel g-tall reveal"><div class="bezel__core g-img"><img src="assets/drive.webp" alt="Bino yonidagi kafe va kirish qismi" loading="lazy" width="720" height="1280"><figcaption>Kafe yonida</figcaption></div></figure>
-        <figure class="bezel reveal"><div class="bezel__core g-img"><img src="assets/night.webp" alt="Carbon binosi kechqurun, yoritilgan peshtoq" loading="lazy" width="640" height="640"><figcaption>23:30 gacha ochiq</figcaption></div></figure>
-        <figure class="bezel reveal"><div class="bezel__core g-img"><img src="assets/boxes.webp" alt="Ustaxona: ko'targichlardagi mashinalar" loading="lazy" width="640" height="640"><figcaption>Ustaxona</figcaption></div></figure>
-        <figure class="bezel reveal"><div class="bezel__core g-img"><img src="assets/hall.webp" alt="Keng yopiq yuvish zali" loading="lazy" width="640" height="640"><figcaption>Yuvish zali</figcaption></div></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- QANDAY ISHLAYDI -->
-  <section id="how" class="section">
-    <div class="wrap how">
-      <div class="section__head how__head" data-index="05">
-        <span class="eyebrow reveal">Qanday ishlaydi</span>
-        <h2 class="title reveal">Uch qadam.<br>Kutish yo'q.</h2>
-      </div>
-      <ol class="how__steps">
-        <li class="reveal"><span class="how__num">01</span><h3>Xizmat va vaqtni tanlang</h3><p>Moyka yoki avtoservis, kun va soat. Band vaqtlar ko'rinmaydi, faqat bo'shlari.</p></li>
-        <li class="reveal"><span class="how__num">02</span><h3>Ustangizni biling</h3><p>Mashinangizni kim yuvishi yoki ta'mirlashi bron chiptasida darhol ko'rinadi. Xohlasangiz, o'zingiz tanlaysiz.</p></li>
-        <li class="reveal"><span class="how__num">03</span><h3>Vaqtida keling</h3><p>Kelganingizda admin belgilaydi, ish boshlanganda va tugaganda holat shu sahifada yangilanadi.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- BRON -->
-  <section id="book" class="section section--line">
-    <div class="wrap book">
-      <div class="book__side" data-index="06">
-        <span class="eyebrow reveal">Onlayn bron</span>
-        <h2 class="title reveal">Kun va soatni <br>band qiling.</h2>
-        <p class="section__sub reveal">Bron qilish bepul. To'lov joyida, xizmatdan keyin.</p>
-        <ul class="perks reveal">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17 19 7"/></svg>7 kun oldinga bron qilish mumkin</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17 19 7"/></svg>Moyshik yoki ustani o'zingiz tanlaysiz</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17 19 7"/></svg>Istalgan vaqtda bekor qilish mumkin</li>
-        </ul>
-        <div class="my-tickets" id="myTickets" aria-live="polite"></div>
-      </div>
-
-      <div class="bezel reveal">
-        <form id="bookForm" class="bezel__core form book__form" novalidate>
-          <div class="seg" role="radiogroup" aria-label="Bo'lim">
-            <label><input type="radio" name="kind" value="wash" checked><span>Moyka</span></label>
-            <label><input type="radio" name="kind" value="service"><span>Avtoservis</span></label>
+          <div class="field cart__plate hidden" id="cafePlateField"><label for="c-plate">Avto raqami</label><input id="c-plate" name="plate" type="text" placeholder="01 A 123 BC"></div>
+          <div class="form__row">
+            <div class="field"><label for="c-name">Ism</label><input id="c-name" name="name" type="text" placeholder="Jasur"></div>
+            <div class="field"><label for="c-phone">Telefon</label><input id="c-phone" name="phone" type="tel" placeholder="+998 90 ..."></div>
           </div>
-
-          <fieldset class="step">
-            <legend><span>1</span>Xizmat</legend>
-            <div class="chips" id="svcChips"></div>
-          </fieldset>
-
-          <fieldset class="step">
-            <legend><span>2</span>Mashina turi</legend>
-            <div class="chips chips--3" id="typeChips"></div>
-          </fieldset>
-
-          <fieldset class="step">
-            <legend><span>3</span>Kun</legend>
-            <div class="days" id="dayChips"></div>
-          </fieldset>
-
-          <fieldset class="step">
-            <legend><span>4</span>Vaqt <small id="slotHint"></small></legend>
-            <div class="slots" id="slotGrid"></div>
-          </fieldset>
-
-          <fieldset class="step">
-            <legend><span>5</span><span id="staffLegend">Kim yuvadi</span></legend>
-            <div class="chips chips--staff" id="staffChips"></div>
-          </fieldset>
-
-          <fieldset class="step">
-            <legend><span>6</span>Ma'lumotlaringiz</legend>
-            <div class="form__row">
-              <div class="field">
-                <label for="f-name">Ismingiz</label>
-                <input id="f-name" name="name" type="text" placeholder="Jasur" autocomplete="given-name" required>
-              </div>
-              <div class="field">
-                <label for="f-phone">Telefon</label>
-                <input id="f-phone" name="phone" type="tel" placeholder="+998 90 123 45 67" autocomplete="tel" required>
-              </div>
-            </div>
-            <div class="form__row">
-              <div class="field">
-                <label for="f-plate">Avto raqami</label>
-                <input id="f-plate" name="plate" type="text" placeholder="01 A 123 BC" required>
-              </div>
-              <div class="field">
-                <label for="f-model">Model</label>
-                <input id="f-model" name="model" type="text" placeholder="Cobalt" required>
-              </div>
-            </div>
-          </fieldset>
-
-          <div class="summary" id="summary"></div>
-          <p class="form__error" id="formError" role="alert"></p>
-          <button type="submit" class="btn btn--full">
-            Bron qilish
-            <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-          </button>
+          <div class="field"><label for="c-note">Izoh <small>ixtiyoriy</small></label><input id="c-note" name="note" type="text" placeholder="Shakarsiz, ko'proq sut..."></div>
+          <p class="form__error" id="cafeError" role="alert"></p>
+          <button type="submit" class="btn btn--lime btn--full btn--lg">Buyurtma berish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
+          <div class="cafe-orders" id="myCafe" aria-live="polite"></div>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- SHARHLAR -->
-  <section id="reviews" class="section">
-    <div class="wrap reviews">
-      <div class="bezel reveal">
-        <div class="bezel__core score">
-          <span class="mono-label">Google Maps reytingi</span>
-          <b class="score__num">4.3</b>
-          <span class="rating__stars score__stars" aria-label="5 dan 4.3 yulduz">★★★★<i>★</i></span>
-          <span class="score__sub">12 ta sharh asosida</span>
-        </div>
+  <!-- 04 RAQAMLAR -->
+  <section id="stats" class="section section--ink">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">04</span>
+        <h2 class="title">Raqamlarda</h2>
+        <p class="sec-sub reveal">Bron tizimidan olinadi: mashina «Tayyor» bo'lganda hisobga kiradi.</p>
+      </header>
+      <div class="numbers">
+        <div class="num reveal"><b id="st30">0</b><span>ta mashina so'nggi 30 kunda</span></div>
+        <div class="num reveal"><b id="stServ">0</b><span>ta servis ishi</span></div>
+        <div class="num reveal"><b id="stWash">0</b><span>ta moyka</span></div>
+        <div class="num reveal"><b id="stToday">0</b><span>ta bugun tayyor</span></div>
       </div>
-      <div class="quotes">
-        <blockquote class="quote reveal">
-          <p>«Menejerga gap yo'q. Muomala madaniyatiga 5 baho. Shu joyni tavsiya qilaman.»</p>
-          <footer><span class="quote__ava">S</span>Shakhzod · Google sharhi</footer>
-        </blockquote>
-        <blockquote class="quote reveal">
-          <p>«Moykasi juda zo'r, bolalar mashinani yaxshi yuvadi. Kelinglar.»</p>
-          <footer><span class="quote__ava">N</span>Nurbol A. · Google sharhi</footer>
-        </blockquote>
-        <a class="btn btn--ghost reveal" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Carbon+car+wash/@41.366684,69.3003651,17z/data=!4m6!3m5!1s0x38aef3004c01ec77:0x898e1ef30f8dca09!8m2!3d41.366684!4d69.30294">
-          Barcha sharhlar
-          <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-        </a>
+      <div class="chart-card reveal">
+        <div class="chart-card__head">
+          <div><h3>Kunlik mashinalar</h3><p>So'nggi 14 kun</p></div>
+          <div class="legend"><span><i class="sw s1"></i>Moyka</span><span><i class="sw s2"></i>Servis</span></div>
+        </div>
+        <div class="chart-box" id="dailyChart"></div>
+        <details class="table-view">
+          <summary>Jadval ko'rinishi</summary>
+          <div id="dailyTable"></div>
+        </details>
       </div>
     </div>
   </section>
 
-  <!-- BUGUNGI JADVAL -->
-  <section id="schedule" class="section section--line">
+  <!-- 04 BINO -->
+  <section id="place" class="section">
     <div class="wrap">
-      <div class="section__head section__head--row" data-index="08">
-        <div>
-          <span class="eyebrow reveal"><i class="dot dot--live"></i>Jonli</span>
-          <h2 class="title reveal">Bugungi jadval</h2>
-        </div>
+      <header class="sec-head">
+        <span class="sec-num">05</span>
+        <h2 class="title">Bizning bino</h2>
+        <p class="sec-sub reveal">Ustaxona, yuvish zali va kutish uchun kafe — hammasi bitta binoda.</p>
+      </header>
+    </div>
+    <div class="reel" tabindex="0" aria-label="Rasmlar">
+      <figure class="reel__item reel__item--wide reveal"><img src="assets/facade.webp" alt="Carbon binosi, kunduzi" loading="lazy" width="1600" height="720"><figcaption>Bino</figcaption></figure>
+      <figure class="reel__item reveal"><img src="assets/boxes.webp" alt="Ustaxona" loading="lazy" width="640" height="640"><figcaption>Ustaxona</figcaption></figure>
+      <figure class="reel__item reel__item--tall reveal"><img src="assets/drive.webp" alt="Kafe va kirish" loading="lazy" width="720" height="1280"><figcaption>Kafe</figcaption></figure>
+      <figure class="reel__item reveal"><img src="assets/hall.webp" alt="Yuvish zali" loading="lazy" width="640" height="640"><figcaption>Yuvish zali</figcaption></figure>
+      <figure class="reel__item reveal"><img src="assets/night.webp" alt="Bino kechqurun" loading="lazy" width="640" height="640"><figcaption>23:30 gacha</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 05 BRON -->
+  <section id="book" class="section section--alt">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">06</span>
+        <h2 class="title">Onlayn bron</h2>
+        <p class="sec-sub reveal">Bepul. To'lov joyida, ishdan keyin. 7 kun oldinga yozilish mumkin.</p>
+      </header>
+      <div class="book">
+        <form id="bookForm" class="book__form reveal" novalidate>
+          <div class="seg" role="radiogroup" aria-label="Bo'lim">
+            <label><input type="radio" name="kind" value="wash" checked><span>Moyka</span></label>
+            <label><input type="radio" name="kind" value="service"><span>Avtoservis</span></label>
+          </div>
+
+          <fieldset class="step"><legend><span>1</span>Xizmat</legend><div class="chips" id="svcChips"></div></fieldset>
+          <fieldset class="step"><legend><span>2</span>Mashina turi</legend><div class="chips chips--3" id="typeChips"></div></fieldset>
+          <fieldset class="step"><legend><span>3</span>Kun</legend><div class="days" id="dayChips"></div></fieldset>
+          <fieldset class="step"><legend><span>4</span>Vaqt <small id="slotHint"></small></legend><div class="slots" id="slotGrid"></div></fieldset>
+          <fieldset class="step"><legend><span>5</span><span id="staffLegend">Kim yuvadi</span></legend><div class="chips chips--staff" id="staffChips"></div></fieldset>
+
+          <fieldset class="step">
+            <legend><span>6</span>Ma'lumotlaringiz</legend>
+            <div class="form__row">
+              <div class="field"><label for="f-name">Ismingiz</label><input id="f-name" name="name" type="text" placeholder="Jasur" autocomplete="given-name" required></div>
+              <div class="field"><label for="f-phone">Telefon</label><input id="f-phone" name="phone" type="tel" placeholder="+998 90 123 45 67" autocomplete="tel" required></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="f-plate">Avto raqami</label><input id="f-plate" name="plate" type="text" placeholder="01 A 123 BC" required></div>
+              <div class="field"><label for="f-model">Model</label><input id="f-model" name="model" type="text" placeholder="Cobalt" required></div>
+            </div>
+          </fieldset>
+
+          <p class="form__error" id="formError" role="alert"></p>
+        </form>
+
+        <aside class="book__side">
+          <div class="receipt reveal">
+            <span class="mono receipt__title">Buyurtma</span>
+            <div class="summary" id="summary"></div>
+            <button type="submit" form="bookForm" class="btn btn--full btn--lg">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
+            <p class="receipt__note">Bron qilganingizdan keyin chipta shu yerda paydo bo'ladi.</p>
+          </div>
+          <div class="my-tickets" id="myTickets" aria-live="polite"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 JADVAL -->
+  <section id="schedule" class="section">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">07</span>
+        <h2 class="title">Bugungi jadval</h2>
         <div class="seg seg--sm" id="schedFilter" role="tablist">
           <button type="button" class="is-active" data-k="all">Hammasi</button>
-          <button type="button" data-k="wash">Moyka</button>
           <button type="button" data-k="service">Servis</button>
+          <button type="button" data-k="wash">Moyka</button>
         </div>
-      </div>
+      </header>
       <div class="queue" id="scheduleList"></div>
+    </div>
+  </section>
+
+  <!-- 07 SHARHLAR -->
+  <section id="reviews" class="section section--alt">
+    <div class="wrap reviews">
+      <div class="score reveal">
+        <span class="mono">Google Maps</span>
+        <b>4.3</b>
+        <span class="stars" aria-label="5 dan 4.3 yulduz">★★★★<i>★</i></span>
+        <span class="score__sub">12 ta sharh asosida</span>
+      </div>
+      <div class="quotes">
+        <blockquote class="quote reveal">
+          <p>«Menejerga gap yo'q. Muomala madaniyatiga 5 baho. Shu joyni tavsiya qilaman.»</p>
+          <footer>Shakhzod · Google sharhi</footer>
+        </blockquote>
+        <blockquote class="quote reveal">
+          <p>«Moykasi juda zo'r, bolalar mashinani yaxshi yuvadi. Kelinglar.»</p>
+          <footer>Nurbol A. · Google sharhi</footer>
+        </blockquote>
+        <a class="link-arrow reveal" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Carbon+car+wash/@41.366684,69.3003651,17z/data=!4m6!3m5!1s0x38aef3004c01ec77:0x898e1ef30f8dca09!8m2!3d41.366684!4d69.30294">Barcha sharhlar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      </div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="cta">
-    <div class="wrap">
-      <div class="bezel reveal">
-        <div class="bezel__core cta__core">
-          <div class="hero__weave" aria-hidden="true"></div>
-          <span class="mono-label"><i class="dot dot--live"></i> Eng yaqin bo'sh vaqt</span>
-          <b class="cta__time" id="ctaTime">--:--</b>
-          <p>Servis yoki moyka — vaqtni hoziroq band qiling, keyin bemalol keling.</p>
-          <a href="#book" class="btn btn--xl">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-        </div>
-      </div>
+    <div class="wrap cta__in">
+      <p class="mono"><i class="dot dot--live"></i> Eng yaqin bo'sh vaqt</p>
+      <b class="cta__time" id="ctaTime">--:--</b>
+      <a href="#book" class="btn btn--lime btn--xl">Shu vaqtni olish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
     </div>
   </section>
 
   <!-- MANZIL -->
   <section id="contact" class="section">
     <div class="wrap contact">
-      <div class="contact__info" data-index="09">
-        <span class="eyebrow reveal">Manzil</span>
-        <h2 class="title reveal">Bizni <br>toping.</h2>
+      <div>
+        <header class="sec-head sec-head--stack">
+          <span class="sec-num">08</span>
+          <h2 class="title">Manzil</h2>
+        </header>
         <dl class="facts reveal">
           <div><dt>Manzil</dt><dd>9883+FC9, Toshkent</dd></div>
           <div><dt>Ish vaqti</dt><dd>Har kuni, 07:30 – 23:30</dd></div>
           <div><dt>Telefon</dt><dd><a href="tel:+998900677774">+998 90 067 77 74</a></dd></div>
           <div><dt>Koordinata</dt><dd class="mono">41.36668, 69.30294</dd></div>
         </dl>
-        <a class="btn btn--ghost reveal" target="_blank" rel="noopener"
-           href="https://www.google.com/maps/place/Carbon+car+wash/@41.366684,69.3003651,17z/data=!4m6!3m5!1s0x38aef3004c01ec77:0x898e1ef30f8dca09!8m2!3d41.366684!4d69.30294">
-          Google Maps'da ochish
-          <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-        </a>
+        <a class="link-arrow reveal" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Carbon+car+wash/@41.366684,69.3003651,17z/data=!4m6!3m5!1s0x38aef3004c01ec77:0x898e1ef30f8dca09!8m2!3d41.366684!4d69.30294">Google Maps'da ochish <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
       </div>
-      <div class="bezel bezel--map reveal">
-        <div class="bezel__core map">
-          <iframe loading="lazy" title="Carbon car wash xaritada"
-            src="https://maps.google.com/maps?q=41.366684,69.30294&z=16&output=embed"></iframe>
-        </div>
+      <div class="map reveal">
+        <iframe loading="lazy" title="Carbon xaritada" src="https://maps.google.com/maps?q=41.366684,69.30294&z=16&output=embed"></iframe>
       </div>
     </div>
   </section>
@@ -418,16 +366,15 @@
   <div class="wrap">
     <div class="footer__word" aria-hidden="true">CARBON</div>
     <div class="footer__row">
-      <img src="assets/logo.svg" alt="Carbon Car Wash" width="200" height="36" class="footer__logo">
+      <span>© <span id="year"></span> Carbon — avtoservis va moyka, Toshkent</span>
       <a href="tel:+998900677774">+998 90 067 77 74</a>
-      <span>© <span id="year"></span> Carbon, Toshkent</span>
       <a href="admin.html">Admin panel</a>
     </div>
   </div>
 </footer>
 
-<script src="store.js?v=12"></script>
-<script src="site.js?v=12"></script>
-<script src="fx.js?v=12"></script>
+<script src="store.js?v=25"></script>
+<script src="site.js?v=25"></script>
+<script src="fx.js?v=25"></script>
 </body>
 </html>
