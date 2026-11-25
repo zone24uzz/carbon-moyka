@@ -10,10 +10,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Onest:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
-  <link rel="stylesheet" href="style.css?v=7">
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__in">
+    <img src="assets/logo-mark.svg" width="56" height="56" alt="">
+    <span class="preloader__word">CARBON</span>
+    <span class="preloader__bar"><i></i></span>
+  </div>
+</div>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
 
 <!-- NAV -->
 <header class="nav" id="nav">
@@ -22,8 +32,8 @@
       <img class="brand__logo" src="assets/logo-mark.svg" width="30" height="30" alt="">CARBON<small>car wash</small>
     </a>
     <nav class="nav__links" aria-label="Asosiy menyu">
-      <a href="#services">Moyka</a>
       <a href="#servis">Avtoservis</a>
+      <a href="#services">Moyka</a>
       <a href="#stats">Statistika</a>
       <a href="#schedule">Jadval</a>
       <a href="#contact">Manzil</a>
@@ -40,8 +50,8 @@
 
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__links">
-    <a href="#services">Moyka</a>
     <a href="#servis">Avtoservis</a>
+    <a href="#services">Moyka</a>
     <a href="#stats">Statistika</a>
     <a href="#book">Bron qilish</a>
     <a href="#schedule">Bugungi jadval</a>
@@ -56,25 +66,39 @@
     <img class="hero__photo" src="assets/facade.webp" alt="" fetchpriority="high">
     <div class="hero__weave" aria-hidden="true"></div>
     <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__spot" aria-hidden="true"></div>
+    <canvas class="hero__bubbles" id="bubbles" aria-hidden="true"></canvas>
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <span class="eyebrow reveal"><i class="dot dot--live"></i>Toshkent · Moyka va avtoservis</span>
-        <h1 class="display reveal">Navbatda <br>turmang.<br><em>Vaqtni band qiling.</em></h1>
-        <p class="lead reveal">Moyka va ustaxona bitta binoda. Kun va soatni tanlang, mashinangizni kim yuvishi yoki ta'mirlashini oldindan biling.</p>
+        <span class="eyebrow reveal"><i class="dot dot--live"></i>Toshkent · Avtoservis va moyka</span>
+        <h1 class="display lines"><span class="line"><span>Navbatda</span></span><span class="line"><span>turmang.</span></span><span class="line"><em>Bron</em></span><span class="line"><em>qiling.</em></span></h1>
+        <p class="lead reveal">Ustaxona va moyka bitta binoda. Kun va soatni tanlang, mashinangizni kim yuvishi yoki ta'mirlashini oldindan biling.</p>
         <div class="hero__actions reveal">
           <a href="#book" class="btn">
             Bron qilish
             <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
           </a>
-          <a href="#servis" class="btn btn--ghost">Avtoservis</a>
+          <a href="#servis" class="btn btn--ghost">Servis ishlari</a>
         </div>
+        <ul class="hero__works reveal" aria-label="Servis ishlari">
+          <li><a href="#servis">Motor</a></li>
+          <li><a href="#servis">Karobka</a></li>
+          <li><a href="#servis">Razval</a></li>
+          <li><a href="#servis">Balansirovka</a></li>
+          <li><a href="#servis">Xodovoy</a></li>
+          <li><a href="#servis">Diagnostika</a></li>
+        </ul>
         <a href="#reviews" class="rating reveal">
           <span class="rating__stars" aria-hidden="true">★★★★<i>★</i></span>
           <b>4.3</b><span>Google Maps'da 12 ta sharh</span>
         </a>
       </div>
 
-      <aside class="bezel hero__board reveal" aria-label="Bugungi holat">
+      <div class="hero__right reveal">
+      <span class="float-chip fc1"><i></i>Razval · 3D stend</span>
+      <span class="float-chip fc2"><i></i>07:30 – 23:30</span>
+      <span class="float-chip fc3"><i></i>Motor va karobka</span>
+      <aside class="bezel hero__board" aria-label="Bugungi holat">
         <div class="bezel__core board">
           <div class="board__head">
             <span class="mono-label"><i class="dot dot--live"></i> Bugun, jonli</span>
@@ -93,20 +117,49 @@
           <ul class="board__next" id="boardNext"></ul>
         </div>
       </aside>
+      </div>
     </div>
   </section>
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker__track">
-      <span>Ko'pikli yuvish</span><i></i><span>Razval</span><i></i><span>Balansirovka</span><i></i><span>Motor va karobka</span><i></i><span>Har kuni 07:30 – 23:30</span><i></i><span>Onlayn bron</span><i></i>
-      <span>Ko'pikli yuvish</span><i></i><span>Razval</span><i></i><span>Balansirovka</span><i></i><span>Motor va karobka</span><i></i><span>Har kuni 07:30 – 23:30</span><i></i><span>Onlayn bron</span><i></i>
+      <span>Motor ta'miri</span><i></i><span>Karobka</span><i></i><span>Razval</span><i></i><span>Balansirovka</span><i></i><span>Xodovoy</span><i></i><span>Diagnostika</span><i></i>
+      <span>Motor ta'miri</span><i></i><span>Karobka</span><i></i><span>Razval</span><i></i><span>Balansirovka</span><i></i><span>Xodovoy</span><i></i><span>Diagnostika</span><i></i>
+    </div>
+    <div class="ticker__track ticker__track--rev">
+      <span>Ko'pikli yuvish</span><i></i><span>Salon tozalash</span><i></i><span>Premium mum</span><i></i><span>Har kuni 07:30 – 23:30</span><i></i><span>Onlayn bron</span><i></i>
+      <span>Ko'pikli yuvish</span><i></i><span>Salon tozalash</span><i></i><span>Premium mum</span><i></i><span>Har kuni 07:30 – 23:30</span><i></i><span>Onlayn bron</span><i></i>
     </div>
   </div>
 
-  <!-- MOYKA -->
-  <section id="services" class="section">
+  <!-- AVTOSERVIS (tepada) -->
+  <section id="servis" class="section">
     <div class="wrap">
-      <div class="section__head">
+      <div class="section__head section__head--row" data-index="01">
+        <div>
+          <span class="eyebrow reveal">Avtoservis</span>
+          <h2 class="title reveal">Ustaxona — <br><em>shu binoning o'zida.</em></h2>
+        </div>
+        <p class="section__sub reveal">Mashinangiz yuvilayotganda razval yoki diagnostikani ham qilib olish mumkin. «...dan» belgisi bor narxlar ko'rikdan keyin aniqlanadi.</p>
+      </div>
+      <div class="bezel serv-banner reveal">
+        <div class="bezel__core serv-banner__core">
+          <img src="assets/boxes.webp" alt="Ustaxona: ko'targichlardagi mashinalar" loading="lazy" width="640" height="640">
+          <div class="serv-banner__text">
+            <span class="mono-label">Servis ishlari</span>
+            <p>Ko'targichlar, diagnostika skaneri va razval stendi. Ustani oldindan tanlab, vaqtni band qilasiz.</p>
+            <a href="#book" class="btn btn--sm" data-pick="diag">Servisga yozilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="svc-grid" id="serviceList"></div>
+    </div>
+  </section>
+
+  <!-- MOYKA -->
+  <section id="services" class="section section--line">
+    <div class="wrap">
+      <div class="section__head" data-index="02">
         <span class="eyebrow reveal">Moyka</span>
         <h2 class="title reveal">Har bir mashinaga <br>o'z tozaligi.</h2>
         <p class="section__sub reveal">Narxlar yengil avtomobil uchun. Krossover uchun +20%, jip va miniven uchun +40%.</p>
@@ -115,24 +168,11 @@
     </div>
   </section>
 
-  <!-- AVTOSERVIS -->
-  <section id="servis" class="section section--line">
-    <div class="wrap">
-      <div class="section__head section__head--row">
-        <div>
-          <span class="eyebrow reveal">Avtoservis</span>
-          <h2 class="title reveal">Ustaxona — <br><em>shu binoning o'zida.</em></h2>
-        </div>
-        <p class="section__sub reveal">Mashinangiz yuvilayotganda razval yoki diagnostikani ham qilib olish mumkin. «...dan» belgisi bor narxlar ko'rikdan keyin aniqlanadi.</p>
-      </div>
-      <div class="svc-grid" id="serviceList"></div>
-    </div>
-  </section>
 
   <!-- STATISTIKA -->
   <section id="stats" class="section">
     <div class="wrap">
-      <div class="section__head section__head--row">
+      <div class="section__head section__head--row" data-index="03">
         <div>
           <span class="eyebrow reveal">Raqamlarda</span>
           <h2 class="title reveal">Har kuni o'nlab <br>mashina.</h2>
@@ -142,7 +182,7 @@
       <div class="stats">
         <div class="stat-tiles">
           <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">So'nggi 30 kunda</span><b id="st30">0</b><span>ta mashinaga xizmat</span></div></div>
-          <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">Moyka / Servis</span><b id="stSplit">0 / 0</b><span>so'nggi 30 kun</span></div></div>
+          <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">Moyka / Servis</span><b><span id="stWash">0</span> / <span id="stServ">0</span></b><span>so'nggi 30 kun</span></div></div>
           <div class="bezel reveal"><div class="bezel__core tile"><span class="mono-label">Bugun</span><b id="stToday">0</b><span>ta mashina tayyor</span></div></div>
         </div>
         <div class="bezel reveal">
@@ -171,7 +211,7 @@
   <!-- GALEREYA -->
   <section id="place" class="section section--line">
     <div class="wrap">
-      <div class="section__head section__head--row">
+      <div class="section__head section__head--row" data-index="04">
         <div>
           <span class="eyebrow reveal">Bizning bino</span>
           <h2 class="title reveal">Keng bokslar.<br><em>Toza ish.</em></h2>
@@ -191,7 +231,7 @@
   <!-- QANDAY ISHLAYDI -->
   <section id="how" class="section">
     <div class="wrap how">
-      <div class="section__head how__head">
+      <div class="section__head how__head" data-index="05">
         <span class="eyebrow reveal">Qanday ishlaydi</span>
         <h2 class="title reveal">Uch qadam.<br>Kutish yo'q.</h2>
       </div>
@@ -206,7 +246,7 @@
   <!-- BRON -->
   <section id="book" class="section section--line">
     <div class="wrap book">
-      <div class="book__side">
+      <div class="book__side" data-index="06">
         <span class="eyebrow reveal">Onlayn bron</span>
         <h2 class="title reveal">Kun va soatni <br>band qiling.</h2>
         <p class="section__sub reveal">Bron qilish bepul. To'lov joyida, xizmatdan keyin.</p>
@@ -316,7 +356,7 @@
   <!-- BUGUNGI JADVAL -->
   <section id="schedule" class="section section--line">
     <div class="wrap">
-      <div class="section__head section__head--row">
+      <div class="section__head section__head--row" data-index="08">
         <div>
           <span class="eyebrow reveal"><i class="dot dot--live"></i>Jonli</span>
           <h2 class="title reveal">Bugungi jadval</h2>
@@ -331,10 +371,25 @@
     </div>
   </section>
 
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <div class="bezel reveal">
+        <div class="bezel__core cta__core">
+          <div class="hero__weave" aria-hidden="true"></div>
+          <span class="mono-label"><i class="dot dot--live"></i> Eng yaqin bo'sh vaqt</span>
+          <b class="cta__time" id="ctaTime">--:--</b>
+          <p>Servis yoki moyka — vaqtni hoziroq band qiling, keyin bemalol keling.</p>
+          <a href="#book" class="btn btn--xl">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- MANZIL -->
   <section id="contact" class="section">
     <div class="wrap contact">
-      <div class="contact__info">
+      <div class="contact__info" data-index="09">
         <span class="eyebrow reveal">Manzil</span>
         <h2 class="title reveal">Bizni <br>toping.</h2>
         <dl class="facts reveal">
@@ -371,7 +426,8 @@
   </div>
 </footer>
 
-<script src="store.js?v=7"></script>
-<script src="site.js?v=7"></script>
+<script src="store.js?v=11"></script>
+<script src="site.js?v=11"></script>
+<script src="fx.js?v=11"></script>
 </body>
 </html>

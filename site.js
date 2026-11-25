@@ -61,6 +61,7 @@ function initReveal() {
     entries.filter((e) => e.isIntersecting).forEach((e, i) => {
       e.target.style.setProperty("--d", `${i * 0.08}s`);
       e.target.classList.add("is-in");
+      setTimeout(() => flushNums(e.target), 250);
       io.unobserve(e.target);
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
@@ -126,8 +127,8 @@ function renderBoard() {
   const working = list.filter((b) => b.status === "working");
   const done = list.filter((b) => b.status === "done");
 
-  $("#statDone").textContent = done.length;
-  $("#statWorking").textContent = working.length;
+  setNum($("#statDone"), done.length);
+  setNum($("#statWorking"), working.length);
   $("#boardNow").textContent = working.length ? `${working.length} ta mashina` : "Bokslar bo'sh";
   $("#boardWho").textContent = working.slice(0, 3).map((b) => `${b.code} · ${Store.staffName(b.startedBy || b.staffId)}`).join("  ·  ");
 
@@ -139,6 +140,7 @@ function renderBoard() {
     if (s) free = d === 0 ? s.time : `ertaga ${s.time}`;
   }
   $("#statFree").textContent = free;
+  if ($("#ctaTime")) $("#ctaTime").textContent = free === "—" ? "Ertaga" : free;
 
   const upcoming = list.filter((b) => b.status === "booked" || b.status === "arrived").sort((a, b) => a.time.localeCompare(b.time));
   $("#boardNext").innerHTML = upcoming.length
@@ -152,10 +154,11 @@ function renderStats() {
   const d30 = dailyCounts(30, list);
   const wash30 = d30.reduce((s, d) => s + d.wash, 0);
   const serv30 = d30.reduce((s, d) => s + d.service, 0);
-  $("#st30").textContent = fmt(wash30 + serv30);
-  $("#stSplit").textContent = `${wash30} / ${serv30}`;
+  setNum($("#st30"), wash30 + serv30, fmt);
+  setNum($("#stWash"), wash30);
+  setNum($("#stServ"), serv30);
   const t = d30[d30.length - 1];
-  $("#stToday").textContent = t.wash + t.service;
+  setNum($("#stToday"), t.wash + t.service);
 
   const rows = dailyCounts(14, list).map((d) => ({
     label: d.label,
@@ -276,6 +279,7 @@ function initBooking() {
     renderBookingStatic();
     renderLive();
     $("#myTickets").scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => window.fxBurst?.($("#myTickets .ticket")), 450);
   });
 
   $("#myTickets").addEventListener("click", (e) => {

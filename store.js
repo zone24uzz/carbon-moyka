@@ -335,8 +335,8 @@ function barChart(el, rows, series, { height = 260, unit = "ta" } = {}) {
       const rr = Math.min(4, h / 2);
       const x = cx(i) - bw / 2;
       bars += isTop
-        ? `<path class="ch-bar ${s.cls}" d="M${x},${y1 + h} V${y1 + rr} Q${x},${y1} ${x + rr},${y1} H${x + bw - rr} Q${x + bw},${y1} ${x + bw},${y1 + rr} V${y1 + h} Z"/>`
-        : `<rect class="ch-bar ${s.cls}" x="${x}" y="${y1}" width="${bw}" height="${h}"/>`;
+        ? `<path class="ch-bar ${s.cls}" style="--bi:${i}" d="M${x},${y1 + h} V${y1 + rr} Q${x},${y1} ${x + rr},${y1} H${x + bw - rr} Q${x + bw},${y1} ${x + bw},${y1 + rr} V${y1 + h} Z"/>`
+        : `<rect class="ch-bar ${s.cls}" style="--bi:${i}" x="${x}" y="${y1}" width="${bw}" height="${h}"/>`;
       acc += v;
     });
     const dense = rows.length > 16;
@@ -379,4 +379,34 @@ function hBars(el, items, { unit = "ta", cls = "s1" } = {}) {
         <span class="hbars__val">${fmt(i.value)} ${unit}</span>
       </li>`).join("")}</ul>`
     : `<p class="empty">Ma'lumot yo'q.</p>`;
+}
+
+/* ---------------- Raqamni sanab chiqarish ---------------- */
+// Ko'rinmagan (.reveal hali ochilmagan) joyda — ko'rinishi bilan sanaydi.
+function setNum(el, n, f = (x) => String(x)) {
+  if (!el) return;
+  const reveal = el.closest(".reveal");
+  if (reveal && !reveal.classList.contains("is-in") && document.documentElement.classList.contains("js")) {
+    el._pending = [n, f];
+    el._v = 0;
+    el.textContent = f(0);
+    (reveal._nums ||= new Set()).add(el);
+    return;
+  }
+  const from = el._v ?? 0;
+  el._v = n;
+  if (from === n || matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = f(n); return; }
+  const t0 = performance.now(), d = 1100;
+  cancelAnimationFrame(el._raf);
+  const step = (t) => {
+    const p = Math.min(1, (t - t0) / d);
+    const e = 1 - Math.pow(1 - p, 4);
+    el.textContent = f(Math.round(from + (n - from) * e));
+    if (p < 1) el._raf = requestAnimationFrame(step);
+  };
+  el._raf = requestAnimationFrame(step);
+}
+function flushNums(reveal) {
+  reveal._nums?.forEach((el) => { const [n, f] = el._pending || []; el._pending = null; if (n != null) setNum(el, n, f); });
+  reveal._nums = null;
 }

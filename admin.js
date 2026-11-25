@@ -83,13 +83,13 @@ function initSchedule() {
   $("#search").addEventListener("input", renderSchedule);
 
   // Xodimni almashtirish
-  $("#schedTable").addEventListener("change", (e) => {
+  $("#view-schedule").addEventListener("change", (e) => {
     const sel = e.target.closest("select[data-staff]");
     if (sel) { Store.update(sel.dataset.staff, { staffId: sel.value }); renderSchedule(); }
   });
 
   // Holat tugmalari
-  $("#schedTable").addEventListener("click", (e) => {
+  $("#view-schedule").addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-act]");
     if (!btn) return;
     const id = btn.dataset.id;
@@ -170,6 +170,7 @@ function renderSchedule() {
   if (q) rows = rows.filter((b) => [b.name, b.phone, b.plate, b.model, b.code].join(" ").toLowerCase().includes(q));
 
   const staff = Store.staff();
+  renderKanban(rows, staff);
   $("#schedEmpty").classList.toggle("hidden", rows.length > 0);
   $("#schedTable").innerHTML = rows.map((b) => {
     const s = service(b.service);
@@ -209,6 +210,60 @@ function renderSchedule() {
         <td>${badge(b.status)}</td>
         <td><div class="actions">${acts.join("")}</div></td>
       </tr>`;
+  }).join("");
+}
+
+// Jonli doska: 4 bosqich
+function renderKanban(rows, staff) {
+  const cols = [
+    { key: "booked", name: "Kutilmoqda", hint: "bron qilingan" },
+    { key: "arrived", name: "Keldi", hint: "navbatda turibdi" },
+    { key: "working", name: "Ishlanmoqda", hint: "boksda / ko'targichda" },
+    { key: "done", name: "Tayyor", hint: "topshirildi" },
+  ];
+  const now = Date.now();
+  $("#kanban").innerHTML = cols.map((c) => {
+    const items = rows.filter((b) => b.status === c.key);
+    return `
+      <section class="kcol kcol--${c.key}">
+        <header class="kcol__head"><span class="kcol__dot"></span><b>${c.name}</b><em>${items.length}</em><small>${c.hint}</small></header>
+        <div class="kcol__list">
+          ${items.length ? items.map((b) => {
+            const s = service(b.service);
+            const who = Store.staffName(workerOf(b));
+            const opts = staff.filter((x) => x.role === KINDS[b.kind].role && (x.active || x.id === b.staffId))
+              .map((x) => `<option value="${x.id}" ${x.id === b.staffId ? "selected" : ""}>${esc(x.name)}</option>`).join("");
+            let extra = "";
+            if (b.status === "working") {
+              const el = minutes(b.startedAt, now);
+              const pct = Math.min(100, (el / b.duration) * 100);
+              extra = `<div class="kcard__timer ${el > b.duration ? "is-late" : ""}"><span>${el} / ${b.duration} daq</span><i style="--p:${pct}%"></i></div>`;
+            }
+            if (b.status === "done") extra = `<div class="kcard__meta">${clock(b.doneAt)} da tugadi · ${minutes(b.startedAt || b.arrivedAt, b.doneAt)} daq</div>`;
+            if (b.status === "arrived") extra = `<div class="kcard__meta">${clock(b.arrivedAt)} da keldi · ${minutes(b.arrivedAt, now)} daq kutyapti</div>`;
+            const action = {
+              booked: `<button class="act act--primary" data-act="arrive" data-id="${b.id}">Keldi</button>`,
+              arrived: `<button class="act act--primary" data-act="start" data-id="${b.id}">Boshlash</button>`,
+              working: `<button class="act act--ok" data-act="done" data-id="${b.id}">Tayyor</button>`,
+              done: "",
+            }[b.status];
+            return `
+              <article class="kcard kcard--${b.kind}">
+                <div class="kcard__top"><b class="kcard__time">${b.time}</b><span class="t-kind t-kind--${b.kind}">${b.kind === "wash" ? "Moyka" : "Servis"}</span><span class="kcard__code">${b.code}</span></div>
+                <div class="kcard__plate">${esc(b.plate)}</div>
+                <div class="kcard__car">${esc(b.model) || "—"} · ${carType(b.carType).name}</div>
+                <div class="kcard__svc">${s.name}</div>
+                ${extra}
+                <div class="kcard__foot">
+                  ${["booked", "arrived"].includes(b.status)
+                    ? `<select class="mini-select" data-staff="${b.id}" aria-label="Xodim">${opts}</select>`
+                    : `<span class="t-staff">${svg("user")}${esc(who)}</span>`}
+                  ${action}
+                </div>
+              </article>`;
+          }).join("") : `<p class="kcol__empty">Bo'sh</p>`}
+        </div>
+      </section>`;
   }).join("");
 }
 
