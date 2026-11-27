@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
   <script>document.documentElement.classList.add("js")</script>
-  <link rel="stylesheet" href="style.css?v=25">
+  <link rel="stylesheet" href="style.css?v=30">
 </head>
 <body>
 <div class="preloader" id="preloader" aria-hidden="true">
@@ -33,13 +33,14 @@
     <nav class="header__nav" aria-label="Asosiy menyu">
       <a href="#servis">Servis</a>
       <a href="#services">Moyka</a>
+      <a href="#book">Bron</a>
       <a href="#cafe">Kafe</a>
-      <a href="#stats">Raqamlar</a>
       <a href="#schedule">Jadval</a>
       <a href="#contact">Manzil</a>
     </nav>
     <div class="header__right">
-      <a class="header__phone" href="tel:+998900677774">+998 90 067 77 74</a>
+      <button class="icon-btn" type="button" data-search aria-label="Qidirish (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></button>
+      <button class="account" type="button" data-auth="login" title="Kirish yoki ro'yxatdan o'tish"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><span class="auth-label">Kirish</span></button>
       <a href="#book" class="btn btn--sm">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
       <button class="burger" id="burger" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     </div>
@@ -51,12 +52,14 @@
     <a href="#servis">Servis</a>
     <a href="#services">Moyka</a>
     <a href="#cafe">Kafe</a>
-    <a href="#stats">Raqamlar</a>
     <a href="#book">Bron qilish</a>
     <a href="#schedule">Jadval</a>
     <a href="#contact">Manzil</a>
   </nav>
-  <a class="menu__phone" href="tel:+998900677774">+998 90 067 77 74</a>
+  <div class="menu__foot">
+    <button class="btn btn--ghost" type="button" data-auth="register"><span class="auth-label">Kirish</span></button>
+    <a class="menu__phone" href="tel:+998900677774">+998 90 067 77 74</a>
+  </div>
 </div>
 
 <main id="top">
@@ -156,97 +159,11 @@
     </div>
   </section>
 
-  <!-- 03 KAFE -->
-  <section id="cafe" class="section">
-    <div class="wrap">
-      <header class="sec-head">
-        <span class="sec-num">03</span>
-        <h2 class="title">Kafe</h2>
-        <p class="sec-sub reveal">Mashinangiz tayyor bo'lguncha qahva iching. Oldindan buyurtma qiling — tayyor bo'lganda kafeda olasiz yoki mashinangizga olib chiqamiz.</p>
-      </header>
-      <div class="cafe">
-        <div class="cafe__menu">
-          <figure class="cafe__photo reveal">
-            <img src="assets/drive.webp" alt="Bino yonidagi kafe" loading="lazy" width="720" height="1280">
-            <figcaption><span class="mono">Kafe · shu binoda</span><b>Qahva, choy va yengil taomlar</b></figcaption>
-          </figure>
-          <div class="menu-list" id="cafeMenu"></div>
-        </div>
-
-        <form class="cart reveal" id="cafeForm" novalidate>
-          <div class="cart__head"><span class="mono">Savat</span><span class="mono" id="cartCount">0 ta</span></div>
-          <ul class="cart__items" id="cartItems"></ul>
-          <div class="cart__total"><span>Jami</span><b id="cartTotal">0 so'm</b></div>
-
-          <div class="cart__where" role="radiogroup" aria-label="Qayerda olasiz">
-            <label><input type="radio" name="where" value="cafe" checked><span>Kafeda olaman</span></label>
-            <label><input type="radio" name="where" value="car"><span>Mashinamga olib chiqing</span></label>
-          </div>
-          <div class="field cart__plate hidden" id="cafePlateField"><label for="c-plate">Avto raqami</label><input id="c-plate" name="plate" type="text" placeholder="01 A 123 BC"></div>
-          <div class="form__row">
-            <div class="field"><label for="c-name">Ism</label><input id="c-name" name="name" type="text" placeholder="Jasur"></div>
-            <div class="field"><label for="c-phone">Telefon</label><input id="c-phone" name="phone" type="tel" placeholder="+998 90 ..."></div>
-          </div>
-          <div class="field"><label for="c-note">Izoh <small>ixtiyoriy</small></label><input id="c-note" name="note" type="text" placeholder="Shakarsiz, ko'proq sut..."></div>
-          <p class="form__error" id="cafeError" role="alert"></p>
-          <button type="submit" class="btn btn--lime btn--full btn--lg">Buyurtma berish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
-          <div class="cafe-orders" id="myCafe" aria-live="polite"></div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 RAQAMLAR -->
-  <section id="stats" class="section section--ink">
-    <div class="wrap">
-      <header class="sec-head">
-        <span class="sec-num">04</span>
-        <h2 class="title">Raqamlarda</h2>
-        <p class="sec-sub reveal">Bron tizimidan olinadi: mashina «Tayyor» bo'lganda hisobga kiradi.</p>
-      </header>
-      <div class="numbers">
-        <div class="num reveal"><b id="st30">0</b><span>ta mashina so'nggi 30 kunda</span></div>
-        <div class="num reveal"><b id="stServ">0</b><span>ta servis ishi</span></div>
-        <div class="num reveal"><b id="stWash">0</b><span>ta moyka</span></div>
-        <div class="num reveal"><b id="stToday">0</b><span>ta bugun tayyor</span></div>
-      </div>
-      <div class="chart-card reveal">
-        <div class="chart-card__head">
-          <div><h3>Kunlik mashinalar</h3><p>So'nggi 14 kun</p></div>
-          <div class="legend"><span><i class="sw s1"></i>Moyka</span><span><i class="sw s2"></i>Servis</span></div>
-        </div>
-        <div class="chart-box" id="dailyChart"></div>
-        <details class="table-view">
-          <summary>Jadval ko'rinishi</summary>
-          <div id="dailyTable"></div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 BINO -->
-  <section id="place" class="section">
-    <div class="wrap">
-      <header class="sec-head">
-        <span class="sec-num">05</span>
-        <h2 class="title">Bizning bino</h2>
-        <p class="sec-sub reveal">Ustaxona, yuvish zali va kutish uchun kafe — hammasi bitta binoda.</p>
-      </header>
-    </div>
-    <div class="reel" tabindex="0" aria-label="Rasmlar">
-      <figure class="reel__item reel__item--wide reveal"><img src="assets/facade.webp" alt="Carbon binosi, kunduzi" loading="lazy" width="1600" height="720"><figcaption>Bino</figcaption></figure>
-      <figure class="reel__item reveal"><img src="assets/boxes.webp" alt="Ustaxona" loading="lazy" width="640" height="640"><figcaption>Ustaxona</figcaption></figure>
-      <figure class="reel__item reel__item--tall reveal"><img src="assets/drive.webp" alt="Kafe va kirish" loading="lazy" width="720" height="1280"><figcaption>Kafe</figcaption></figure>
-      <figure class="reel__item reveal"><img src="assets/hall.webp" alt="Yuvish zali" loading="lazy" width="640" height="640"><figcaption>Yuvish zali</figcaption></figure>
-      <figure class="reel__item reveal"><img src="assets/night.webp" alt="Bino kechqurun" loading="lazy" width="640" height="640"><figcaption>23:30 gacha</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- 05 BRON -->
+  <!-- 03 BRON -->
   <section id="book" class="section section--alt">
     <div class="wrap">
       <header class="sec-head">
-        <span class="sec-num">06</span>
+        <span class="sec-num">03</span>
         <h2 class="title">Onlayn bron</h2>
         <p class="sec-sub reveal">Bepul. To'lov joyida, ishdan keyin. 7 kun oldinga yozilish mumkin.</p>
       </header>
@@ -282,12 +199,80 @@
           <div class="receipt reveal">
             <span class="mono receipt__title">Buyurtma</span>
             <div class="summary" id="summary"></div>
-            <button type="submit" form="bookForm" class="btn btn--full btn--lg">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
+            <button type="submit" form="bookForm" class="btn btn--full btn--lg" id="bookSubmit">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
             <p class="receipt__note">Bron qilganingizdan keyin chipta shu yerda paydo bo'ladi.</p>
           </div>
           <div class="my-tickets" id="myTickets" aria-live="polite"></div>
+          <form class="lookup" id="lookupForm" novalidate>
+            <span class="mono" id="lookup">Bronni topish</span>
+            <p>Boshqa telefondan bron qilganmisiz? Kod va telefon raqamini kiriting.</p>
+            <div class="lookup__row">
+              <input name="code" type="text" placeholder="M-03" aria-label="Bron kodi" maxlength="6" required>
+              <input name="phone" type="tel" placeholder="+998 90 123 45 67" aria-label="Telefon" required>
+              <button class="btn btn--sm" type="submit">Topish</button>
+            </div>
+            <div class="lookup__result" id="lookupResult" aria-live="polite"></div>
+          </form>
         </aside>
       </div>
+    </div>
+  </section>
+
+  <!-- 04 KAFE -->
+  <section id="cafe" class="section">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">04</span>
+        <h2 class="title">Kafe</h2>
+        <p class="sec-sub reveal">Mashinangiz tayyor bo'lguncha qahva iching. Oldindan buyurtma qiling — tayyor bo'lganda kafeda olasiz yoki mashinangizga olib chiqamiz.</p>
+      </header>
+      <div class="cafe">
+        <div class="cafe__menu">
+          <figure class="cafe__photo reveal">
+            <img src="assets/drive.webp" alt="Bino yonidagi kafe" loading="lazy" width="720" height="1280">
+            <figcaption><span class="mono">Kafe · shu binoda</span><b>Qahva, choy va yengil taomlar</b></figcaption>
+          </figure>
+          <div class="menu-list" id="cafeMenu"></div>
+        </div>
+
+        <form class="cart reveal" id="cafeForm" novalidate>
+          <div class="cart__head"><span class="mono">Savat</span><span class="mono" id="cartCount">0 ta</span></div>
+          <ul class="cart__items" id="cartItems"></ul>
+          <div class="cart__total"><span>Jami</span><b id="cartTotal">0 so'm</b></div>
+
+          <div class="cart__where" role="radiogroup" aria-label="Qayerda olasiz">
+            <label><input type="radio" name="where" value="cafe" checked><span>Kafeda olaman</span></label>
+            <label><input type="radio" name="where" value="car"><span>Mashinamga olib chiqing</span></label>
+          </div>
+          <div class="field cart__plate hidden" id="cafePlateField"><label for="c-plate">Avto raqami</label><input id="c-plate" name="plate" type="text" placeholder="01 A 123 BC"></div>
+          <div class="form__row">
+            <div class="field"><label for="c-name">Ism</label><input id="c-name" name="name" type="text" placeholder="Jasur"></div>
+            <div class="field"><label for="c-phone">Telefon</label><input id="c-phone" name="phone" type="tel" placeholder="+998 90 ..."></div>
+          </div>
+          <div class="field"><label for="c-note">Izoh <small>ixtiyoriy</small></label><input id="c-note" name="note" type="text" placeholder="Shakarsiz, ko'proq sut..."></div>
+          <p class="form__error" id="cafeError" role="alert"></p>
+          <button type="submit" class="btn btn--lime btn--full btn--lg">Buyurtma berish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
+          <div class="cafe-orders" id="myCafe" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 BINO -->
+  <section id="place" class="section">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">05</span>
+        <h2 class="title">Bizning bino</h2>
+        <p class="sec-sub reveal">Ustaxona, yuvish zali va kutish uchun kafe — hammasi bitta binoda.</p>
+      </header>
+    </div>
+    <div class="reel" tabindex="0" aria-label="Rasmlar">
+      <figure class="reel__item reel__item--wide reveal"><img src="assets/facade.webp" alt="Carbon binosi, kunduzi" loading="lazy" width="1600" height="720"><figcaption>Bino</figcaption></figure>
+      <figure class="reel__item reveal"><img src="assets/boxes.webp" alt="Ustaxona" loading="lazy" width="640" height="640"><figcaption>Ustaxona</figcaption></figure>
+      <figure class="reel__item reel__item--tall reveal"><img src="assets/drive.webp" alt="Kafe va kirish" loading="lazy" width="720" height="1280"><figcaption>Kafe</figcaption></figure>
+      <figure class="reel__item reveal"><img src="assets/hall.webp" alt="Yuvish zali" loading="lazy" width="640" height="640"><figcaption>Yuvish zali</figcaption></figure>
+      <figure class="reel__item reveal"><img src="assets/night.webp" alt="Bino kechqurun" loading="lazy" width="640" height="640"><figcaption>23:30 gacha</figcaption></figure>
     </div>
   </section>
 
@@ -295,7 +280,7 @@
   <section id="schedule" class="section">
     <div class="wrap">
       <header class="sec-head">
-        <span class="sec-num">07</span>
+        <span class="sec-num">06</span>
         <h2 class="title">Bugungi jadval</h2>
         <div class="seg seg--sm" id="schedFilter" role="tablist">
           <button type="button" class="is-active" data-k="all">Hammasi</button>
@@ -344,7 +329,7 @@
     <div class="wrap contact">
       <div>
         <header class="sec-head sec-head--stack">
-          <span class="sec-num">08</span>
+          <span class="sec-num">07</span>
           <h2 class="title">Manzil</h2>
         </header>
         <dl class="facts reveal">
@@ -362,6 +347,35 @@
   </section>
 </main>
 
+<div class="api-state hidden" id="apiState" role="status">Server bilan aloqa yo'q — ma'lumotlar yangilanmayapti. Internetni tekshiring.</div>
+
+<nav class="mbar" aria-label="Tezkor amallar">
+  <a class="btn btn--ghost" href="tel:+998900677774">Qo'ng'iroq</a>
+  <a class="btn" href="#book">Bron qilish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+</nav>
+
+<dialog class="dialog" id="authDialog" aria-labelledby="authTitle">
+  <form id="authForm" class="form" method="dialog" novalidate>
+    <div class="dialog__head"><h2 id="authTitle" class="dialog__title">Ro'yxatdan o'tish</h2><button type="button" class="icon-btn" id="authClose" aria-label="Yopish">✕</button></div>
+    <p class="dialog__sub">Akkaunt bilan bronlaringiz va buyurtmalaringiz istalgan qurilmada ko'rinadi, formalar o'zi to'ladi.</p>
+    <div class="field" id="authNameField"><label for="a-name">Ismingiz</label><input id="a-name" name="name" type="text" autocomplete="given-name"></div>
+    <div class="field"><label for="a-phone">Telefon</label><input id="a-phone" name="phone" type="tel" placeholder="+998 90 123 45 67" autocomplete="tel"></div>
+    <div class="field"><label for="a-pass">Parol</label><input id="a-pass" name="password" type="password" autocomplete="new-password" minlength="6"></div>
+    <p class="form__error" id="authError" role="alert"></p>
+    <button class="btn btn--full btn--lg" id="authSubmit" type="submit">Ro'yxatdan o'tish<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
+    <button class="link-btn" type="button" id="authSwitch">Akkauntingiz bormi? <b>Kirish</b></button>
+  </form>
+</dialog>
+
+<dialog class="dialog dialog--search" id="searchDialog" aria-label="Qidiruv">
+  <div class="search-box">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+    <input id="searchInput" type="search" placeholder="Xizmat, qahva yoki ma'lumot qidiring…" aria-label="Qidirish" autocomplete="off">
+    <kbd>Esc</kbd>
+  </div>
+  <ul class="search-results" id="searchResults"></ul>
+</dialog>
+
 <footer class="footer">
   <div class="wrap">
     <div class="footer__word" aria-hidden="true">CARBON</div>
@@ -373,8 +387,9 @@
   </div>
 </footer>
 
-<script src="store.js?v=25"></script>
-<script src="site.js?v=25"></script>
-<script src="fx.js?v=25"></script>
+<script src="catalog.js?v=30"></script>
+<script src="store.js?v=30"></script>
+<script src="site.js?v=30"></script>
+<script src="fx.js?v=30"></script>
 </body>
 </html>

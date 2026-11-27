@@ -54,8 +54,9 @@
       cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
+    // Pufakchalar faqat o'ng tomonda (rasm atrofida) — sarlavha ustiga chiqmasin
     const make = (initial) => ({
-      x: Math.random() * W,
+      x: W > 900 ? W * 0.52 + Math.random() * W * 0.48 : Math.random() * W,
       y: initial ? Math.random() * H : H + 40,
       r: 4 + Math.pow(Math.random(), 2) * 26,
       v: 0.25 + Math.random() * 0.6,
@@ -63,7 +64,7 @@
       hue: Math.random() < 0.5 ? 0 : 200,
     });
     size();
-    const count = W < 700 ? 16 : 30;
+    const count = W < 700 ? 0 : 22;
     bubbles = Array.from({ length: count }, () => make(true));
     window.addEventListener("resize", raf(size));
     let mx = -999, my = -999;
